@@ -1,0 +1,10 @@
+*,*::before,*::after{box-sizing:border-box;margin:0}
+html{scroll-behavior:auto}
+body{background:var(--paper);color:var(--ink);
+  font-family:"Songti SC","Source Han Serif SC",Georgia,serif;
+  font-size:var(--fs-body);line-height:1.7;-webkit-font-smoothing:antialiased}
+h1,h2,h3{font-family:"Source Han Sans SC","Heiti SC",system-ui,sans-serif;line-height:1.1}
+.num,time{font-family:"Times New Roman",Times,serif;font-variant-numeric:tabular-nums}
+.section{max-width:var(--maxw);margin-inline:auto;padding:clamp(72px,12vh,160px) var(--gut)}
+a{color:inherit}
+@media (max-width:720px){:root{--gut:20px}}

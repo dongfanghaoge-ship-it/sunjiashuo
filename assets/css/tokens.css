@@ -1,0 +1,14 @@
+:root{
+  --sdu-red:#9E1B32;
+  --sdu-red-deep:#7d1527;
+  --paper:#f6f3ec;
+  --ink:#1a1a1a;
+  --ink-soft:#5b5b5b;
+  --line:#dcd6c9;
+  --maxw:1180px;
+  --gut:clamp(20px,5vw,72px);
+  --fs-hero:clamp(3rem,11vw,9rem);
+  --fs-h2:clamp(2rem,5vw,3.4rem);
+  --fs-body:clamp(1rem,1.2vw,1.125rem);
+  --ease:cubic-bezier(.22,1,.36,1);
+}
