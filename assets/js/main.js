@@ -5,12 +5,14 @@ import {initAnimations} from "./animations.js";
 import {initWorks} from "./works.js";
 import {initFloat} from "./hero-float.js";
 import {initPreloader} from "./preloader.js";
+import {initTypewriter} from "./typewriter.js";
 
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]static/.test(location.search);
 initPreloader();
 renderAll();
 initScroll(reduced);
 initWorks();
+initTypewriter(reduced);
 if(!reduced){ initCursor(); initFloat(); }
 
 const animated = !reduced && !!window.gsap;

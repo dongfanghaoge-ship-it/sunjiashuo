@@ -25,6 +25,7 @@ export function initPreloader(){
     if(cur>=100){
       clearInterval(ramp);
       pre.classList.add("is-done");
+      window.dispatchEvent(new Event("preloaded"));
       setTimeout(()=>pre.remove(), 750);
       return;
     }

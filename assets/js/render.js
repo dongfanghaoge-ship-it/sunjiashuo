@@ -9,21 +9,37 @@ const floatImg = (src,alt,cls="")=>`<div class="floaty ${cls}"><div class="float
   : `<span class="floaty__ph">${esc(alt)||"图片占位"}</span>`}</div></div>`;
 
 export function renderNav(){
-  const items=[["about","关于"],["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
+  const items=[["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
   $("#nav").innerHTML = `
     <a class="nav__brand" href="#hero"><span class="nav__dot"></span>${profile.name}</a>
     <ul class="nav__links mono">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
 }
 
 export function renderHero(){
+  // 长简介拆成两段，呈现参考图的多段落感
+  const sents = (profile.about||"").split("。").map(s=>s.trim()).filter(Boolean);
+  const mid = Math.ceil(sents.length/2);
+  const paras = [sents.slice(0,mid).join("。")+"。", sents.slice(mid).join("。")+(sents.length>mid?"。":"")].filter(p=>p.length>1);
+  const facts = academic ? `<ul class="hero2__facts">
+      <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
+      <li><b class="num">${esc(academic.cet6)}</b><span>英语六级</span></li>
+      <li><b class="num">${esc(academic.cet4)}</b><span>英语四级</span></li>
+    </ul>` : "";
   $("#hero").innerHTML = `
-    ${floatImg("", "首页主图（待提供）", "floaty--hero")}
-    <div class="hero__inner">
-      <p class="hero__meta mono">${esc(profile.school)} · ${esc(profile.major)}</p>
-      <h1 class="hero__name">${esc(profile.name)}</h1>
-      <p class="hero__tag">${esc(profile.tagline)}</p>
+    <div class="hero2">
+      <div class="hero2__photo">${profile.photo
+        ? `<img src="${esc(profile.photo)}" alt="${esc(profile.name)}" draggable="false">`
+        : `<span class="ph">人物照（待提供）</span>`}</div>
+      <div class="hero2__body">
+        <p class="hero2__name">${esc(profile.name)}</p>
+        <p class="hero2__meta mono">${esc(profile.school)} · ${esc(profile.major)}</p>
+        <p class="hero2__statement" data-typewriter>${profile.statement||esc(profile.tagline)}</p>
+        <ul class="hero2__tags">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
+        <div class="hero2__bio">${paras.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+        ${facts}
+      </div>
     </div>
-    <a class="hero__cue mono" href="#about"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
+    <a class="hero__cue mono" href="#works"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
 }
 
 export function renderAbout(){
@@ -161,6 +177,6 @@ export function renderContact(){
 }
 
 export function renderAll(){
-  renderNav();renderHero();renderAbout();renderWorks();
+  renderNav();renderHero();renderWorks();
   renderResearch();renderExperience();renderHonors();renderContact();
 }
