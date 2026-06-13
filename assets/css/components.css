@@ -126,3 +126,12 @@
 .exp-photos__item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
 .exp-photos__item figcaption{margin-top:6px;color:var(--ink-soft);font-size:.85rem}
 @media (max-width:720px){.gallery{columns:2 140px}.pf-nav{top:48px}}
+
+/* ===== Hero ===== */
+#hero.section{max-width:none;padding-inline:0}
+#hero{position:relative;min-height:100svh;display:grid;place-items:center;overflow:hidden}
+#heroCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0}
+.hero__inner{position:relative;z-index:1;text-align:center;padding-inline:var(--gut)}
+.hero__name{font-size:var(--fs-hero)}
+.hero__tag{margin-top:14px;color:var(--ink-soft);font-size:clamp(1rem,2vw,1.4rem)}
+.hero__cue{position:absolute;bottom:-22vh;left:50%;transform:translateX(-50%);color:var(--ink-soft);font-size:.85rem}

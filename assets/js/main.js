@@ -3,6 +3,7 @@ import {initScroll} from "./scroll.js";
 import {initCursor} from "./cursor.js";
 import {initAnimations} from "./animations.js";
 import {initWorks} from "./works.js";
+import {initHeroCanvas} from "./hero-canvas.js";
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
 renderAll();
 initScroll(reduced);
@@ -14,3 +15,4 @@ if(animated){
 }else{
   document.querySelectorAll(".num[data-count]").forEach(el=>{el.textContent=el.dataset.count||"0";});
 }
+if(!reduced && !matchMedia("(hover: none)").matches) initHeroCanvas();
