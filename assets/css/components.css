@@ -69,3 +69,60 @@
 .has-cursor a,.has-cursor button,.has-cursor .card,.has-cursor .gallery__item,
 .has-cursor .video-card,.has-cursor .btn{cursor:none}
 @media (hover: none){#cursor{display:none}}
+
+/* ===== 作品集 ===== */
+/* 徽章 */
+.card__level{display:inline-block;font-size:.78rem;color:#fff;background:var(--sdu-red);
+  padding:2px 10px;border-radius:999px}
+/* 类目导航 */
+.pf-nav{position:sticky;top:54px;display:flex;gap:18px;flex-wrap:wrap;padding:10px 0;
+  margin-bottom:24px;border-bottom:1px solid var(--line);background:var(--paper);z-index:20}
+.pf-nav a{color:var(--ink-soft);font-size:.95rem;text-decoration:none}
+.pf-nav a.is-active{color:var(--sdu-red);font-weight:600}
+.pf-block{margin:48px 0 72px;scroll-margin-top:90px}
+/* 数据新闻 笔记本外框 */
+.laptop{max-width:880px;margin:0 auto;background:#1a1a1a;border-radius:14px;padding:14px 14px 0}
+.laptop__screen{aspect-ratio:16/10;background:#fff;border-radius:6px;overflow:hidden;display:grid;place-items:center}
+.laptop__screen iframe{width:100%;height:100%;border:0}
+.laptop::after{content:"";display:block;height:12px;margin:10px -14px 0;background:#2b2b2b;border-radius:0 0 14px 14px}
+.pf-data__meta{max-width:880px;margin:18px auto 0}
+.pf-data__meta h4{font-size:1.4rem;margin:10px 0 6px}
+/* 新闻评论 文章卡 */
+.pf-intro{color:var(--ink-soft);margin-bottom:20px;font-size:1.05rem}
+.article-list{display:grid;gap:18px}
+.article{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;
+  transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+.article:hover{transform:translateY(-4px);box-shadow:0 18px 40px -26px rgba(0,0,0,.4)}
+.article__title{font-size:1.3rem;margin:8px 0}
+.article__meta{display:flex;gap:14px;color:var(--ink-soft);font-size:.9rem;margin-bottom:10px}
+.article__quote{border-left:3px solid var(--sdu-red);padding-left:14px;color:#333;margin:12px 0}
+/* 影像 视频网格 */
+.video-grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(260px,1fr))}
+.video-card{display:block;text-decoration:none;color:inherit}
+.video-card__media{position:relative;aspect-ratio:16/9;border-radius:12px;overflow:hidden;background:#ece7db}
+.video-card__media img{width:100%;height:100%;object-fit:cover}
+.video-card .play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:2rem;
+  background:rgba(0,0,0,.25);transition:background .3s}
+.video-card:hover .play{background:rgba(158,27,50,.45)}
+.video-card__title{margin:10px 0 2px;font-size:1.1rem}
+.video-card__kind{color:var(--ink-soft);font-size:.85rem}
+/* 设计与摄影 瀑布流 */
+.gallery{columns:3 240px;column-gap:16px}
+.gallery__item{break-inside:avoid;margin:0 0 16px;position:relative;cursor:pointer}
+.gallery__item img{width:100%;border-radius:10px;display:block}
+.gallery__item figcaption{position:absolute;left:0;right:0;bottom:0;padding:10px;color:#fff;
+  background:linear-gradient(transparent,rgba(0,0,0,.6));opacity:0;transition:opacity .3s;border-radius:0 0 10px 10px}
+.gallery__item:hover figcaption{opacity:1}
+.ph--text{aspect-ratio:auto;padding:28px}
+/* lightbox */
+.lightbox{position:fixed;inset:0;z-index:80;display:grid;place-items:center;
+  background:rgba(20,18,18,.9);padding:5vw}
+.lightbox[hidden]{display:none}
+.lightbox__img{max-width:92vw;max-height:88vh;border-radius:8px}
+.lightbox__close{position:absolute;top:18px;right:24px;font-size:2rem;color:#fff;background:none;border:0;cursor:pointer}
+/* 实践照片条 */
+.exp-photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px;margin-top:36px}
+.exp-photos__item{margin:0;position:relative}
+.exp-photos__item img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:10px;display:block}
+.exp-photos__item figcaption{margin-top:6px;color:var(--ink-soft);font-size:.85rem}
+@media (max-width:720px){.gallery{columns:2 140px}.pf-nav{top:48px}}
