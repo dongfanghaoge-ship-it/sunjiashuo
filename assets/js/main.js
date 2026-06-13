@@ -1,1 +1,2 @@
-console.log('boot');
+import {renderAll} from "./render.js";
+renderAll();

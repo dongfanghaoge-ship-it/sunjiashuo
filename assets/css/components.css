@@ -1,0 +1,50 @@
+.sec__title{font-size:var(--fs-h2);margin-bottom:28px}
+.pf-h3{font-size:clamp(1.3rem,3vw,1.9rem);margin:36px 0 16px}
+
+/* 占位块 */
+.ph{display:grid;place-items:center;aspect-ratio:16/10;background:#ece7db;
+  border:1px dashed var(--line);color:var(--ink-soft);font-size:.9rem;text-align:center;padding:12px}
+
+/* 关于 */
+.about__grid{display:grid;grid-template-columns:1.7fr 1fr;gap:clamp(24px,4vw,56px);align-items:start}
+.about__text{font-size:1.1rem}
+.about__facts{display:flex;gap:clamp(20px,4vw,48px);list-style:none;margin-top:28px;padding:0}
+.about__facts b{display:block;font-size:clamp(2rem,5vw,3rem);color:var(--sdu-red)}
+.about__facts span{color:var(--ink-soft);font-size:.9rem}
+.about__tags{list-style:none;padding:0;display:flex;flex-wrap:wrap;gap:10px;align-content:start}
+.about__tags li{border:1px solid var(--line);border-radius:999px;padding:6px 14px;font-size:.9rem}
+
+/* 汇总数字 */
+.stat{display:flex;gap:clamp(28px,6vw,80px);margin:8px 0 8px}
+.stat__item b{display:block;font-size:clamp(2.4rem,7vw,4.5rem);color:var(--sdu-red)}
+.stat__item span{color:var(--ink-soft)}
+
+/* 时间线 */
+.timeline{list-style:none;padding:0;position:relative;margin-left:8px}
+.timeline__item{position:relative;padding:0 0 30px 26px;border-left:2px solid var(--line)}
+.timeline__item::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;
+  border-radius:50%;background:var(--sdu-red)}
+.timeline__item time{color:var(--ink-soft);font-size:.9rem}
+.timeline__item h3{font-size:1.2rem;margin:4px 0}
+.timeline__meta{color:var(--ink-soft);font-size:.92rem;margin-bottom:6px}
+
+/* 荣誉墙与技能 */
+.wall{list-style:none;padding:0;display:grid;gap:10px;grid-template-columns:repeat(auto-fill,minmax(280px,1fr))}
+.wall__item{display:flex;justify-content:space-between;gap:12px;padding:12px 16px;
+  background:#fff;border:1px solid var(--line);border-radius:10px}
+.wall__item time{color:var(--sdu-red);font-size:.9rem;white-space:nowrap}
+.skills{list-style:none;padding:0;display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.skills li{padding:14px 16px;background:#fff;border:1px solid var(--line);border-radius:10px}
+.skills b{display:block;color:var(--sdu-red);margin-bottom:4px}
+
+/* 链接与按钮 */
+.link{color:var(--sdu-red);text-decoration:underline;text-underline-offset:3px;font-size:.95rem}
+.btn{display:inline-block;margin-top:14px;background:var(--sdu-red);color:#fff;
+  padding:12px 24px;border-radius:999px;text-decoration:none}
+.btn:hover{background:var(--sdu-red-deep)}
+.contact__line{font-size:1.2rem}
+.foot{margin-top:48px;color:var(--ink-soft);font-size:.9rem}
+
+@media (max-width:720px){
+  .about__grid{grid-template-columns:1fr}
+}
