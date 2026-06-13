@@ -1,22 +1,36 @@
+// 作品集交互：横排拖拽滚动、图片点击放大、整行可点。
 export function initWorks(){
+  // 横排拖拽
+  document.querySelectorAll(".drag-row").forEach(row=>{
+    let down=false,sx=0,sl=0,moved=0;
+    row.addEventListener("pointerdown",e=>{down=true;sx=e.clientX;sl=row.scrollLeft;moved=0;row.setPointerCapture(e.pointerId);});
+    row.addEventListener("pointermove",e=>{
+      if(!down)return;const dx=e.clientX-sx;moved=Math.max(moved,Math.abs(dx));
+      row.scrollLeft=sl-dx;if(Math.abs(dx)>4)row.classList.add("is-drag");
+    });
+    const up=()=>{down=false;setTimeout(()=>row.classList.remove("is-drag"),0);};
+    row.addEventListener("pointerup",up);row.addEventListener("pointercancel",up);
+    row.addEventListener("click",e=>{if(moved>6){e.preventDefault();e.stopPropagation();}},true);
+  });
+
+  // 图片放大 lightbox
   const lb=document.getElementById("lightbox");
   const lbImg=lb?.querySelector(".lightbox__img");
   const open=src=>{if(!lb||!src)return;lbImg.src=src;lb.hidden=false;lb.setAttribute("aria-hidden","false");document.body.style.overflow="hidden";};
   const close=()=>{if(!lb)return;lb.hidden=true;lb.setAttribute("aria-hidden","true");lbImg.src="";document.body.style.overflow="";};
-  document.querySelectorAll(".gallery__item[data-src]").forEach(f=>{
+  document.querySelectorAll("[data-zoom][data-src]").forEach(f=>{
     const src=f.getAttribute("data-src");
+    if(!src)return;
     f.addEventListener("click",()=>open(src));
-    f.addEventListener("keydown",e=>{if(e.key==="Enter"||e.key===" "){e.preventDefault();open(src);}});
   });
   lb?.addEventListener("click",e=>{if(e.target===lb||e.target.closest(".lightbox__close"))close();});
   addEventListener("keydown",e=>{if(e.key==="Escape")close();});
 
-  const links=[...document.querySelectorAll(".pf-nav a")];
-  const map=new Map(links.map(a=>[a.getAttribute("href").slice(1),a]));
-  if(links.length&&"IntersectionObserver" in window){
-    const io=new IntersectionObserver(es=>es.forEach(en=>{
-      if(en.isIntersecting){links.forEach(l=>l.classList.remove("is-active"));map.get(en.target.id)?.classList.add("is-active");}
-    }),{rootMargin:"-40% 0px -55% 0px"});
-    ["pf-data","pf-write","pf-video","pf-visual"].forEach(id=>{const el=document.getElementById(id);if(el)io.observe(el);});
-  }
+  // 整行可点（科研 PDF）
+  document.querySelectorAll(".row[data-href]").forEach(r=>{
+    r.addEventListener("click",e=>{
+      if(e.target.closest("a"))return;
+      window.open(r.getAttribute("data-href"),"_blank","noopener");
+    });
+  });
 }

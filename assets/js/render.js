@@ -1,129 +1,163 @@
 import {profile, portfolio, competitions, research, experience, experiencePhotos, honors, skills, academic} from "./content.js";
 const $ = (sel,el=document)=>el.querySelector(sel);
+const STATIC = /[?&]static/.test(location.search);   // 预览/降级模式：不内嵌 iframe
+const esc = s => (s==null?"":String(s));
+const kicker = (no,label)=>`<p class="kicker"><span class="dot"></span><span class="mono">${no}</span><span>${label}</span></p>`;
+// 漂浮图片（替代参考站的 3D 悬浮物）：留空显示占位，给定 src 显示图片；动效由 hero-float.js 接管
+const floatImg = (src,alt,cls="")=>`<div class="floaty ${cls}"><div class="floaty__inner" data-float>${src
+  ? `<img src="${src}" alt="${esc(alt)}" draggable="false">`
+  : `<span class="floaty__ph">${esc(alt)||"图片占位"}</span>`}</div></div>`;
 
 export function renderNav(){
-  const items=[["about","关于"],["works","作品集"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
-  $("#nav").innerHTML = `<a class="nav__brand" href="#hero">${profile.name}</a>
-    <ul class="nav__links">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
+  const items=[["about","关于"],["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
+  $("#nav").innerHTML = `
+    <a class="nav__brand" href="#hero"><span class="nav__dot"></span>${profile.name}</a>
+    <ul class="nav__links mono">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
 }
 
 export function renderHero(){
-  $("#hero").innerHTML = `<canvas id="heroCanvas" aria-hidden="true"></canvas>
+  $("#hero").innerHTML = `
+    ${floatImg("", "首页主图（待提供）", "floaty--hero")}
     <div class="hero__inner">
-      <h1 class="hero__name">${profile.name}</h1>
-      <p class="hero__tag">${profile.tagline}</p>
-      <p class="hero__cue">向下滚动</p>
-    </div>`;
+      <p class="hero__meta mono">${esc(profile.school)} · ${esc(profile.major)}</p>
+      <h1 class="hero__name">${esc(profile.name)}</h1>
+      <p class="hero__tag">${esc(profile.tagline)}</p>
+    </div>
+    <a class="hero__cue mono" href="#about"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
 }
 
 export function renderAbout(){
-  const facts = academic ? `<ul class="about__facts">
-      <li><b class="num">${academic.gpaPercent}</b><span>百分制绩点 · 前五学期</span></li>
-      <li><b class="num">${academic.cet6}</b><span>英语六级</span></li>
-      <li><b class="num">${academic.cet4}</b><span>英语四级</span></li>
+  const facts = academic ? `<ul class="facts">
+      <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
+      <li><b class="num">${esc(academic.cet6)}</b><span>英语六级</span></li>
+      <li><b class="num">${esc(academic.cet4)}</b><span>英语四级</span></li>
     </ul>` : "";
-  $("#about").innerHTML = `<h2 class="sec__title">关于我</h2>
-    <div class="about__grid">
-      <div class="about__main"><p class="about__text">${profile.about||"（自述待定稿）"}</p>${facts}</div>
-      <ul class="about__tags">${profile.tags.map(t=>`<li>${t}</li>`).join("")}</ul>
-    </div>`;
+  $("#about").innerHTML = `
+    ${kicker("01","关于我 / About")}
+    <p class="lead">${esc(profile.about)||"（自述待定稿）"}</p>
+    ${facts}
+    <ul class="tagrow">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`;
 }
 
 export function renderWorks(){
   const p=portfolio;
   const pieces=(p.commentary.length)+(p.video.length)+(p.gallery.length)+(p.dataNews.url?1:0);
-  const stat=`<div class="stat">
-    <div class="stat__item"><b class="num" data-count="${pieces}">0</b><span>作品</span></div>
-    <div class="stat__item"><b class="num" data-count="${competitions.length}">0</b><span>竞赛获奖</span></div>
-  </div>`;
-  const cats=[["pf-data","数据新闻"],["pf-write","新闻评论"],["pf-video","影像"],["pf-visual","设计与摄影"]];
-  const nav=`<div class="pf-nav">${cats.map(([id,t])=>`<a href="#${id}">${t}</a>`).join("")}</div>`;
 
-  const data=`<div id="pf-data" class="pf-block">
-    <h3 class="pf-h3">数据新闻</h3>
-    <div class="laptop"><div class="laptop__screen">${p.dataNews.url
-      ? `<iframe src="${p.dataNews.url}" title="${p.dataNews.title||"数据新闻作品"}" loading="lazy"></iframe>`
-      : `<span class="ph">数据新闻在线作品（待提供网址）</span>`}</div></div>
-    <div class="pf-data__meta">
-      ${p.dataNews.badge?`<span class="card__level">${p.dataNews.badge}</span>`:""}
-      <h4>${p.dataNews.title||"（作品名待填）"}</h4>
-      <p>${p.dataNews.summary||""}</p>
-      ${p.dataNews.url?`<a class="btn" href="${p.dataNews.url}" target="_blank" rel="noopener">查看在线作品</a>`:""}
-    </div></div>`;
+  // 数据新闻：实时嵌入 + 漂浮信息
+  const data=`
+    <div class="work-block" id="pf-data">
+      <div class="work-head"><span class="mono tag-line">数据新闻 / Data Journalism</span></div>
+      <div class="featured">
+        <div class="featured__screen">${p.dataNews.url
+          ? (STATIC?`<span class="ph">数据新闻在线作品（实时嵌入）</span>`:`<iframe src="${esc(p.dataNews.url)}" title="${esc(p.dataNews.title)}" loading="lazy"></iframe>`)
+          : `<span class="ph">数据新闻在线作品（待提供网址）</span>`}</div>
+        <div class="featured__meta">
+          ${p.dataNews.badge?`<span class="badge">${esc(p.dataNews.badge)}</span>`:""}
+          <h3>${esc(p.dataNews.title)||"（作品名待填）"}</h3>
+          <p>${esc(p.dataNews.summary)}</p>
+          ${p.dataNews.url?`<a class="btn" href="${esc(p.dataNews.url)}" target="_blank" rel="noopener" data-cursor="查看">查看在线作品</a>`:""}
+        </div>
+      </div>
+    </div>`;
 
-  const write=`<div id="pf-write" class="pf-block">
-    <h3 class="pf-h3">新闻评论</h3>
-    ${p.commentaryIntro?`<p class="pf-intro">${p.commentaryIntro}</p>`:""}
-    <figure class="cert">${p.commentaryCert
-      ? `<img src="${p.commentaryCert}" alt="红辣椒评论特约评论员聘书" loading="lazy"><figcaption>红辣椒评论特约评论员聘书</figcaption>`
-      : `<span class="ph">特约评论员聘书（待提供图片）</span>`}</figure>
-    <div class="article-list">${(p.commentary.length?p.commentary:[null]).map(c=>c?`
-      <article class="article">
-        ${c.badge?`<span class="card__level">${c.badge}</span>`:""}
-        <h4 class="article__title">${c.title||""}</h4>
-        <p class="article__meta"><span>${c.media||""}</span>${c.date?`<time>${c.date}</time>`:""}</p>
-        ${c.quote?`<blockquote class="article__quote">${c.quote}</blockquote>`:""}
-        ${c.url?`<a class="link" href="${c.url}" target="_blank" rel="noopener">阅读全文</a>`:""}
-      </article>`:`<p class="ph ph--text">新闻评论作品（待提供）</p>`).join("")}</div></div>`;
+  // 新闻评论：身份 + 聘书漂浮图 + 大文章卡
+  const write=`
+    <div class="work-block" id="pf-write">
+      <div class="work-head"><span class="mono tag-line">新闻评论 / Commentary</span></div>
+      ${p.commentaryIntro?`<p class="lead lead--sm">${esc(p.commentaryIntro)}</p>`:""}
+      <div class="write-grid">
+        <div class="article-list">${(p.commentary.length?p.commentary:[null]).map(c=>c?`
+          <a class="article ${c.url?"":"article--static"}" ${c.url?`href="${esc(c.url)}" target="_blank" rel="noopener" data-cursor="阅读"`:""}>
+            ${c.badge?`<span class="badge">${esc(c.badge)}</span>`:""}
+            <h4>${esc(c.title)}</h4>
+            <p class="article__meta mono"><span>${esc(c.media)}</span>${c.date?`<span>${esc(c.date)}</span>`:""}</p>
+            ${c.quote?`<blockquote>${esc(c.quote)}</blockquote>`:""}
+            ${c.url?`<span class="article__go mono">阅读全文 →</span>`:""}
+          </a>`:`<p class="ph ph--text">新闻评论作品（待提供）</p>`).join("")}</div>
+        <figure class="cert">${floatImg(p.commentaryCert,"特约评论员聘书（待提供）","floaty--cert")}<figcaption class="mono">特约评论员聘书</figcaption></figure>
+      </div>
+    </div>`;
 
-  const video=`<div id="pf-video" class="pf-block">
-    <h3 class="pf-h3">影像</h3>
-    <div class="video-grid">${(p.video.length?p.video:[null]).map(v=>v?`
-      <a class="video-card" href="${v.url||"#"}" ${v.url?'target="_blank" rel="noopener"':""}>
-        <div class="video-card__media">${v.gif?`<img src="${v.gif}" alt="${v.title||""}" loading="lazy">`:`<span class="ph">GIF 预览</span>`}<span class="play">▶</span></div>
-        <h4 class="video-card__title">${v.title||""}</h4>
-        <span class="video-card__kind">${v.kind||""}</span>
-      </a>`:`<span class="ph">影像作品（待提供）</span>`).join("")}</div></div>`;
+  // 影像：可拖拽横排
+  const video=`
+    <div class="work-block" id="pf-video">
+      <div class="work-head"><span class="mono tag-line">影像 / Film</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
+      <div class="drag-row" data-drag>${(p.video.length?p.video:[null,null,null]).map((v,i)=>v?`
+        <a class="vcard" ${v.url?`href="${esc(v.url)}" target="_blank" rel="noopener" data-cursor="播放"`:""}>
+          <div class="vcard__media">${v.gif?`<img src="${esc(v.gif)}" alt="${esc(v.title)}" draggable="false">`:`<span class="ph">GIF 预览</span>`}<span class="vcard__play">▶</span></div>
+          <h4>${esc(v.title)}</h4><span class="mono">${esc(v.kind)}</span>
+        </a>`:`<div class="vcard"><div class="vcard__media"><span class="ph">影像作品 ${i+1}（待提供）</span></div></div>`).join("")}</div>
+    </div>`;
 
-  const visual=`<div id="pf-visual" class="pf-block">
-    <h3 class="pf-h3">设计与摄影</h3>
-    <div class="gallery">${(p.gallery.length?p.gallery:[null,null,null]).map((g,i)=>g?`
-      <figure class="gallery__item" data-src="${g.src}" tabindex="0">
-        <img src="${g.src}" alt="${g.caption||""}" loading="lazy">
-        <figcaption>${g.caption||""}</figcaption></figure>`
-      :`<figure class="gallery__item"><span class="ph">图位 ${i+1}</span></figure>`).join("")}</div></div>`;
+  // 设计与摄影：可拖拽横排 + 点击放大
+  const visual=`
+    <div class="work-block" id="pf-visual">
+      <div class="work-head"><span class="mono tag-line">设计与摄影 / Visual</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
+      <div class="drag-row" data-drag>${(p.gallery.length?p.gallery:[null,null,null,null]).map((g,i)=>g?`
+        <figure class="gcard" data-zoom data-src="${esc(g.src)}" data-cursor="放大">
+          <img src="${esc(g.src)}" alt="${esc(g.caption)}" draggable="false">
+          <figcaption class="mono">${esc(g.caption)}</figcaption></figure>`
+        :`<figure class="gcard gcard--ph"><span class="ph">作品 ${i+1}（待提供）</span></figure>`).join("")}</div>
+    </div>`;
 
-  $("#works").innerHTML = `<h2 class="sec__title">作品集</h2>${stat}${nav}${data}${write}${video}${visual}`;
+  $("#works").innerHTML = `
+    ${kicker("02","作品集 / Works")}
+    <div class="works-title"><h2 class="big">作品集</h2><span class="count mono"><b class="num" data-count="${pieces}">0</b> 件作品 · <b class="num" data-count="${competitions.length}">0</b> 项竞赛获奖</span></div>
+    ${data}${write}${video}${visual}`;
 }
 
 export function renderResearch(){
-  $("#research").innerHTML = `<h2 class="sec__title">科研与学术</h2>
-    <ol class="timeline">${research.map(r=>`
-      <li class="timeline__item"><time>${r.year||""}</time>
-        <h3>${r.title||""}</h3><p class="timeline__meta">${r.venue||""}</p>
-        <p>${r.summary||""}</p>
-        ${r.pdf?`<a class="link" href="${r.pdf}" target="_blank" rel="noopener">查看全文</a>`:""}</li>`).join("")}</ol>`;
+  $("#research").innerHTML = `
+    ${kicker("03","科研与学术 / Research")}
+    <h2 class="big">科研与学术</h2>
+    <ol class="rows">${research.map(r=>`
+      <li class="row" ${r.pdf?`data-href="${esc(r.pdf)}"`:""}>
+        <span class="row__no mono">${esc(r.year)}</span>
+        <div class="row__main"><h3>${esc(r.title)}</h3><p>${esc(r.summary)}</p></div>
+        <span class="row__tag mono">${esc(r.venue)}</span>
+        ${r.pdf?`<a class="row__link mono" href="${esc(r.pdf)}" target="_blank" rel="noopener" data-cursor="查看">查看全文 →</a>`:""}
+      </li>`).join("")}</ol>`;
 }
 
 export function renderExperience(){
-  const photos=`<div class="exp-photos">${(experiencePhotos.length?experiencePhotos:[null,null,null]).map(p=>p
-    ?`<figure class="exp-photos__item"><img src="${p.src}" alt="${p.caption||""}" loading="lazy"><figcaption>${p.caption||""}</figcaption></figure>`
-    :`<figure class="exp-photos__item"><span class="ph">实习照片</span></figure>`).join("")}</div>`;
-  $("#experience").innerHTML = `<h2 class="sec__title">实践经历</h2>
-    <ol class="timeline">${experience.map(e=>`
-      <li class="timeline__item"><time>${e.period||""}</time>
-        <h3>${e.org||""}</h3><p class="timeline__meta">${e.role||""}</p>
-        <p>${e.summary||""}</p></li>`).join("")}</ol>
+  const photos=`<div class="drag-row" data-drag>${(experiencePhotos.length?experiencePhotos:[null,null,null]).map((p,i)=>p
+    ?`<figure class="gcard" data-zoom data-src="${esc(p.src)}" data-cursor="放大"><img src="${esc(p.src)}" alt="${esc(p.caption)}" draggable="false"><figcaption class="mono">${esc(p.caption)}</figcaption></figure>`
+    :`<figure class="gcard gcard--ph"><span class="ph">实习照片 ${i+1}（待提供）</span></figure>`).join("")}</div>`;
+  $("#experience").innerHTML = `
+    ${kicker("04","实践经历 / Experience")}
+    <h2 class="big">实践经历</h2>
+    <ol class="rows">${experience.map(e=>`
+      <li class="row">
+        <span class="row__no mono">${esc(e.period)}</span>
+        <div class="row__main"><h3>${esc(e.org)}</h3><p class="mono">${esc(e.role)}</p><p>${esc(e.summary)}</p></div>
+      </li>`).join("")}</ol>
+    <div class="work-head"><span class="mono tag-line">现场 / Snapshots</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
     ${photos}`;
 }
 
 export function renderHonors(){
   const comp=competitions.length
-    ?`<h3 class="pf-h3">竞赛获奖</h3>
-      <ul class="wall">${competitions.map(c=>`<li class="wall__item"><span>${c.title}${c.level?`（${c.level}）`:""}</span><time>${c.year||""}</time></li>`).join("")}</ul>`:"";
-  $("#honors").innerHTML = `<h2 class="sec__title">荣誉与技能</h2>
+    ?`<h3 class="sub">竞赛获奖</h3>
+      <ul class="wall">${competitions.map(c=>`<li><span>${esc(c.title)}</span><span class="mono wall__lv">${esc(c.level)} · ${esc(c.year)}</span></li>`).join("")}</ul>`:"";
+  $("#honors").innerHTML = `
+    ${kicker("05","荣誉与技能 / Honors")}
+    <h2 class="big">荣誉与技能</h2>
     ${comp}
-    <h3 class="pf-h3">荣誉称号</h3>
-    <ul class="wall">${honors.map(o=>`<li class="wall__item"><span>${o.name}</span><time>${o.year||""}</time></li>`).join("")}</ul>
-    <h3 class="pf-h3">技能</h3>
-    <ul class="skills">${skills.map(s=>`<li><b>${s.label}</b><span>${s.detail||""}</span></li>`).join("")}</ul>`;
+    <h3 class="sub">荣誉称号</h3>
+    <ul class="wall">${honors.map(o=>`<li><span>${esc(o.name)}</span><span class="mono wall__lv">${esc(o.year)}</span></li>`).join("")}</ul>
+    <h3 class="sub">技能</h3>
+    <ul class="skills">${skills.map(s=>`<li><b>${esc(s.label)}</b><span>${esc(s.detail)}</span></li>`).join("")}</ul>`;
 }
 
 export function renderContact(){
-  $("#contact").innerHTML = `<h2 class="sec__title">联系</h2>
-    <p class="contact__line">${profile.email?`<a href="mailto:${profile.email}">${profile.email}</a>`:"（邮箱待提供）"}</p>
-    <a class="btn" href="assets/docs/简历.pdf" target="_blank" rel="noopener">下载简历</a>
-    <footer class="foot">© <span class="num">2026</span> ${profile.name}</footer>`;
+  $("#contact").innerHTML = `
+    ${kicker("06","联系 / Contact")}
+    <h2 class="contact-big">一起<br>聊聊</h2>
+    <div class="contact-row">
+      ${profile.email?`<a class="contact-link" href="mailto:${esc(profile.email)}" data-cursor="发邮件">${esc(profile.email)}</a>`:`<span class="contact-link">（邮箱待提供）</span>`}
+      <a class="btn" href="assets/docs/简历.pdf" target="_blank" rel="noopener" data-cursor="下载">下载简历</a>
+    </div>
+    <footer class="foot mono"><span>© 2026 ${esc(profile.name)}</span><span>${esc(profile.school)}</span></footer>`;
 }
 
 export function renderAll(){

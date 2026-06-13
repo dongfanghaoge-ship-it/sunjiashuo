@@ -1,14 +1,41 @@
+/* ===== 设计令牌：白底 + 山大红，Geist 大字（仿 coolcooltomato） ===== */
+@font-face{
+  font-family:"Geist";
+  src:url("../fonts/geist-latin.woff2") format("woff2-variations");
+  font-weight:100 900;
+  font-display:swap;
+}
+
 :root{
-  --sdu-red:#9E1B32;
-  --sdu-red-deep:#7d1527;
-  --paper:#f6f3ec;
-  --ink:#1a1a1a;
-  --ink-soft:#5b5b5b;
-  --line:#dcd6c9;
-  --maxw:1180px;
-  --gut:clamp(20px,5vw,72px);
-  --fs-hero:clamp(3rem,11vw,9rem);
-  --fs-h2:clamp(2rem,5vw,3.4rem);
-  --fs-body:clamp(1rem,1.2vw,1.125rem);
-  --ease:cubic-bezier(.22,1,.36,1);
+  /* 颜色 */
+  --red:#9E1B32;            /* 山大红，主强调色 */
+  --red-deep:#7d1527;
+  --bg:#ffffff;            /* 纯白 */
+  --ink:#0c0c0c;           /* 近黑 */
+  --ink-soft:#7a7a7a;
+  --line:#e7e7e7;
+  --line-soft:#f2f2f2;
+
+  /* 兼容旧引用 */
+  --sdu-red:var(--red);
+  --paper:var(--bg);
+
+  /* 字体：拉丁与数字 Geist，中文系统无衬线 */
+  --sans:"Geist","PingFang SC","Source Han Sans SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+
+  /* 尺寸 */
+  --maxw:1320px;
+  --gut:clamp(22px,5vw,90px);
+
+  /* 大字阶梯（对齐参考站 clamp） */
+  --fs-huge:clamp(3.5rem,16vw,12rem);    /* 首页巨字 */
+  --fs-xl:clamp(2.6rem,9vw,7rem);         /* 区块巨标题 */
+  --fs-h2:clamp(2rem,5.5vw,4.2rem);
+  --fs-h3:clamp(1.4rem,3vw,2.2rem);
+  --fs-lead:clamp(1.1rem,1.6vw,1.6rem);
+  --fs-body:clamp(1rem,1.05vw,1.18rem);
+  --fs-mono:clamp(.72rem,.9vw,.86rem);
+
+  --ease:cubic-bezier(.16,1,.3,1);
+  --ease-soft:cubic-bezier(.22,1,.36,1);
 }

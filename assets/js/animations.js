@@ -1,23 +1,37 @@
+// 入场与滚动动效（GSAP + ScrollTrigger）。动效关闭时不调用本模块，元素保持默认可见。
 export function initAnimations(){
   gsap.registerPlugin(ScrollTrigger);
-  gsap.from(".hero__name",{y:80,opacity:0,duration:1.1,ease:"power3.out"});
-  gsap.from(".hero__tag",{y:30,opacity:0,duration:.9,delay:.25,ease:"power3.out"});
-  document.querySelectorAll(".sec__title").forEach(t=>{
-    gsap.from(t,{y:40,opacity:0,duration:.8,ease:"power3.out",
-      scrollTrigger:{trigger:t,start:"top 85%"}});
+
+  // 首页入场
+  gsap.from(".hero__meta",{y:24,opacity:0,duration:.8,ease:"power3.out",delay:.15});
+  gsap.from(".hero__name",{y:90,opacity:0,duration:1.1,ease:"power4.out",delay:.25});
+  gsap.from(".hero__tag",{y:24,opacity:0,duration:.9,ease:"power3.out",delay:.5});
+  gsap.from(".floaty--hero",{opacity:0,scale:.9,duration:1.2,ease:"power3.out",delay:.4});
+
+  // 通用滚动揭示
+  const reveal=(sel,opt={})=>gsap.utils.toArray(sel).forEach((el,i)=>{
+    gsap.from(el,Object.assign({y:42,opacity:0,duration:.85,ease:"power3.out",
+      scrollTrigger:{trigger:el,start:"top 86%"}},opt,{delay:(i%6)*0.05}));
   });
-  gsap.utils.toArray(".card,.article,.video-card,.gallery__item,.timeline__item,.wall__item").forEach((el,i)=>{
-    gsap.from(el,{y:36,opacity:0,duration:.7,ease:"power3.out",
-      scrollTrigger:{trigger:el,start:"top 90%"},delay:(i%6)*.04});
-  });
+  reveal(".kicker");
+  reveal(".big,.contact-big",{y:60});
+  reveal(".lead");
+  reveal(".facts li",{y:30});
+  reveal(".tagrow li",{y:18,duration:.5});
+  reveal(".work-head");
+  reveal(".featured");
+  reveal(".article");
+  reveal(".vcard,.gcard");
+  reveal(".row");
+  reveal(".wall li",{y:20,duration:.55});
+  reveal(".skills li");
+  reveal(".contact-row");
+
+  // 数字计数
   gsap.utils.toArray(".num[data-count]").forEach(el=>{
-    const end=+el.dataset.count||0;const o={v:0};
-    gsap.to(o,{v:end,duration:1.2,ease:"power1.out",
-      scrollTrigger:{trigger:el,start:"top 90%"},
+    const end=+el.dataset.count||0,o={v:0};
+    gsap.to(o,{v:end,duration:1.3,ease:"power1.out",
+      scrollTrigger:{trigger:el,start:"top 92%"},
       onUpdate:()=>{el.textContent=Math.round(o.v);}});
-  });
-  gsap.utils.toArray(".video-card__media img").forEach(m=>{
-    gsap.to(m,{yPercent:-6,ease:"none",
-      scrollTrigger:{trigger:m,start:"top bottom",end:"bottom top",scrub:true}});
   });
 }

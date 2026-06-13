@@ -1,10 +1,29 @@
 *,*::before,*::after{box-sizing:border-box;margin:0}
-html{scroll-behavior:auto}
-body{background:var(--paper);color:var(--ink);
-  font-family:"Songti SC","Source Han Serif SC",Georgia,serif;
-  font-size:var(--fs-body);line-height:1.7;-webkit-font-smoothing:antialiased}
-h1,h2,h3{font-family:"Source Han Sans SC","Heiti SC",system-ui,sans-serif;line-height:1.1}
-.num,time{font-family:"Times New Roman",Times,serif;font-variant-numeric:tabular-nums}
-.section{max-width:var(--maxw);margin-inline:auto;padding:clamp(72px,12vh,160px) var(--gut)}
-a{color:inherit}
-@media (max-width:720px){:root{--gut:20px}}
+html{scroll-behavior:auto;-webkit-text-size-adjust:100%}
+body{
+  background:var(--bg);color:var(--ink);
+  font-family:var(--sans);font-size:var(--fs-body);line-height:1.6;
+  font-weight:400;letter-spacing:-.01em;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+  overflow-x:hidden;
+}
+h1,h2,h3,h4{font-family:var(--sans);line-height:.96;font-weight:700;letter-spacing:-.03em}
+.num,.mono{font-family:var(--sans);font-variant-numeric:tabular-nums;letter-spacing:0}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+button{font-family:inherit}
+
+/* 全屏分区：每个区块占满视口高度，仿参考站 full screen sections */
+.section{position:relative;min-height:100svh;display:flex;flex-direction:column;justify-content:center;
+  max-width:var(--maxw);margin-inline:auto;padding:clamp(110px,14vh,180px) var(--gut) clamp(70px,10vh,120px);
+  scroll-margin-top:0}
+
+/* 区块小标号（如 01 / 关于） */
+.kicker{display:flex;align-items:center;gap:12px;font-size:var(--fs-mono);
+  text-transform:uppercase;letter-spacing:.18em;color:var(--ink-soft);margin-bottom:26px}
+.kicker .dot{width:8px;height:8px;border-radius:50%;background:var(--red)}
+
+@media (max-width:720px){
+  :root{--gut:22px}
+  .section{min-height:auto;padding:clamp(96px,16vh,130px) var(--gut) 64px}
+}
