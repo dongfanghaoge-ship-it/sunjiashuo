@@ -135,3 +135,24 @@
 .hero__name{font-size:var(--fs-hero)}
 .hero__tag{margin-top:14px;color:var(--ink-soft);font-size:clamp(1rem,2vw,1.4rem)}
 .hero__cue{position:absolute;bottom:-22vh;left:50%;transform:translateX(-50%);color:var(--ink-soft);font-size:.85rem}
+
+/* ===== 无障碍与响应式收尾 ===== */
+/* 键盘焦点环 */
+:focus-visible{outline:2px solid var(--sdu-red);outline-offset:3px;border-radius:4px}
+/* 锚点跳转时标题不被固定导航遮挡 */
+section[id]{scroll-margin-top:64px}
+
+/* 移动端导航：不再整体隐藏，改为隐藏品牌名、链接居中可横向滚动的紧凑行 */
+@media (max-width:720px){
+  #nav{padding:10px 14px}
+  .nav__brand{display:none}
+  .nav__links{display:flex;gap:12px;font-size:.78rem;width:100%;justify-content:center;
+    overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .nav__links::-webkit-scrollbar{display:none}
+  .nav__links a{white-space:nowrap}
+}
+/* 极窄屏：关于卡片数字与标签更紧凑 */
+@media (max-width:420px){
+  .about__facts{gap:20px}
+  .stat{gap:24px}
+}
