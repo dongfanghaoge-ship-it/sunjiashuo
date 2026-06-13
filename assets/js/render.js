@@ -18,9 +18,9 @@ export function renderHero(){
 
 export function renderAbout(){
   const facts = academic ? `<ul class="about__facts">
-      <li><b class="num">${academic.gpaPercent}</b><span>百分制绩点</span></li>
-      <li><b class="num">${academic.gpaFivePoint}</b><span>五分制绩点</span></li>
+      <li><b class="num">${academic.gpaPercent}</b><span>百分制绩点 · 前五学期</span></li>
       <li><b class="num">${academic.cet6}</b><span>英语六级</span></li>
+      <li><b class="num">${academic.cet4}</b><span>英语四级</span></li>
     </ul>` : "";
   $("#about").innerHTML = `<h2 class="sec__title">关于我</h2>
     <div class="about__grid">
@@ -54,6 +54,9 @@ export function renderWorks(){
   const write=`<div id="pf-write" class="pf-block">
     <h3 class="pf-h3">新闻评论</h3>
     ${p.commentaryIntro?`<p class="pf-intro">${p.commentaryIntro}</p>`:""}
+    <figure class="cert">${p.commentaryCert
+      ? `<img src="${p.commentaryCert}" alt="红辣椒评论特约评论员聘书" loading="lazy"><figcaption>红辣椒评论特约评论员聘书</figcaption>`
+      : `<span class="ph">特约评论员聘书（待提供图片）</span>`}</figure>
     <div class="article-list">${(p.commentary.length?p.commentary:[null]).map(c=>c?`
       <article class="article">
         ${c.badge?`<span class="card__level">${c.badge}</span>`:""}
