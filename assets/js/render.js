@@ -10,7 +10,7 @@ const floatImg = (src,alt,cls="")=>`<div class="floaty ${cls}"><div class="float
 function renderNav(){
   const items=[["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
   $("#nav").innerHTML = `
-    <a class="nav__brand" href="#hero"><span class="nav__dot"></span>${profile.name}</a>
+    <a class="nav__brand" href="#hero"><span class="nav__dot"></span>欢迎来到${profile.name}的个人网站</a>
     <ul class="nav__links mono">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
 }
 
@@ -114,9 +114,12 @@ function renderResearch(){
     <ol class="rows">${research.map(r=>`
       <li class="row" ${r.pdf?`data-href="${esc(r.pdf)}"`:""}>
         <span class="row__no mono">${esc(r.year)}</span>
-        <div class="row__main"><h3>${esc(r.title)}</h3><p>${esc(r.summary)}</p></div>
-        <span class="row__tag mono">${esc(r.venue)}</span>
-        ${r.pdf?`<a class="row__link mono" href="${esc(r.pdf)}" target="_blank" rel="noopener" data-cursor="查看">查看全文 →</a>`:""}
+        <div class="row__main">
+          <h3>${esc(r.title)}</h3>
+          ${r.venue?`<p class="row__venue mono">${esc(r.venue)}</p>`:""}
+          <p>${esc(r.summary)}</p>
+          ${r.pdf?`<a class="row__link mono" href="${esc(r.pdf)}" target="_blank" rel="noopener" data-cursor="查看">查看全文 →</a>`:""}
+        </div>
       </li>`).join("")}</ol>`;
 }
 
@@ -153,7 +156,7 @@ function renderHonors(){
 function renderContact(){
   $("#contact").innerHTML = `
     ${kicker("06","联系 / Contact")}
-    <h2 class="contact-big">一起<br>聊聊</h2>
+    <h2 class="contact-big">欢迎和我联系！</h2>
     <div class="contact-row">
       ${profile.email?`<a class="contact-link" href="mailto:${esc(profile.email)}" data-cursor="发邮件">${esc(profile.email)}</a>`:`<span class="contact-link">（邮箱待提供）</span>`}
       <a class="btn" href="assets/docs/简历.pdf" target="_blank" rel="noopener" data-cursor="下载">下载简历</a>

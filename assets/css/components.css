@@ -143,7 +143,7 @@
 
 /* ---------- 大列表行（科研 / 实践） ---------- */
 .rows{list-style:none;border-top:1px solid var(--ink)}
-.row{display:grid;grid-template-columns:120px 1fr auto;gap:24px;align-items:baseline;
+.row{display:grid;grid-template-columns:120px 1fr;gap:24px;align-items:baseline;
   padding:30px 8px;border-bottom:1px solid var(--line);position:relative;transition:padding .35s var(--ease)}
 .row[data-href]{cursor:pointer}
 .row:hover{padding-left:22px}
@@ -153,8 +153,8 @@
 .row__main h3{font-size:clamp(1.3rem,2.6vw,2.1rem);letter-spacing:-.02em;margin-bottom:8px}
 .row__main p{color:#444;max-width:46em}
 .row__main p.mono{color:var(--ink-soft);margin-bottom:6px}
-.row__tag{color:var(--ink-soft);white-space:nowrap}
-.row__link{color:var(--red);white-space:nowrap}
+.row__venue{color:var(--ink-soft);letter-spacing:.04em}
+.row__link{display:inline-block;margin-top:14px;color:var(--red);white-space:nowrap}
 @media (max-width:760px){.row{grid-template-columns:1fr;gap:8px}.row__tag,.row__link{justify-self:start}}
 
 /* ---------- 荣誉墙 / 技能 ---------- */
@@ -170,7 +170,7 @@
 
 /* ---------- 联系 ---------- */
 #contact.section{justify-content:center}
-.contact-big{font-size:var(--fs-huge);font-weight:800;line-height:.86;letter-spacing:-.04em;margin-bottom:.4em}
+.contact-big{font-size:clamp(1.9rem,7.5vw,5.2rem);font-weight:800;line-height:1;letter-spacing:-.03em;margin-bottom:.4em;white-space:nowrap}
 .contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,4vw,56px)}
 .contact-link{font-size:clamp(1.4rem,3vw,2.4rem);font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:4px;transition:color .25s,border-color .25s}
 .contact-link:hover{color:var(--red);border-color:var(--red)}
