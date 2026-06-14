@@ -37,6 +37,7 @@
 .hero2__facts{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,44px);list-style:none;margin-top:28px;
   padding-top:22px;border-top:1px solid var(--line)}
 .hero2__facts b{display:block;font-size:clamp(1.5rem,2.3vw,2.05rem);font-weight:800;color:var(--red);line-height:1}
+.hero2__facts b.num--txt{font-size:clamp(1.2rem,1.9vw,1.65rem)}
 .hero2__facts span{color:var(--ink-soft);font-size:.8rem;margin-top:4px;display:block}
 @media (max-width:860px){
   .hero2{grid-template-columns:1fr;gap:22px}

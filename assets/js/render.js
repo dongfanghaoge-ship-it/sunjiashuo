@@ -21,8 +21,8 @@ function renderHero(){
   const paras = [sents.slice(0,mid).join("。")+"。", sents.slice(mid).join("。")+(sents.length>mid?"。":"")].filter(p=>p.length>1);
   const facts = academic ? `<ul class="hero2__facts">
       <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
-      <li><b class="num">${esc(academic.cet6)}</b><span>英语六级</span></li>
-      <li><b class="num">${esc(academic.cet4)}</b><span>英语四级</span></li>
+      <li><b class="num">${esc(academic.rank)||"待补"}</b><span>专业排名</span></li>
+      <li><b class="num num--txt">国家奖学金</b><span>2024–2025学年获得者</span></li>
     </ul>` : "";
   $("#hero").innerHTML = `
     <div class="hero2">
@@ -39,19 +39,6 @@ function renderHero(){
       </div>
     </div>
     <a class="hero__cue mono" href="#works"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
-}
-
-function renderAbout(){
-  const facts = academic ? `<ul class="facts">
-      <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
-      <li><b class="num">${esc(academic.cet6)}</b><span>英语六级</span></li>
-      <li><b class="num">${esc(academic.cet4)}</b><span>英语四级</span></li>
-    </ul>` : "";
-  $("#about").innerHTML = `
-    ${kicker("01","关于我 / About")}
-    <p class="lead">${esc(profile.about)||"（自述待定稿）"}</p>
-    ${facts}
-    <ul class="tagrow">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`;
 }
 
 function renderWorks(){
