@@ -121,11 +121,11 @@
 
 /* 可拖拽横排 */
 .drag-row{display:flex;gap:20px;overflow-x:auto;padding:6px 2px 22px;cursor:ew-resize;
-  scrollbar-width:none;scroll-snap-type:x proximity}
+  scrollbar-width:none}
 .drag-row::-webkit-scrollbar{display:none}
 .drag-row.is-drag{cursor:grabbing}
 .drag-row.is-drag *{pointer-events:none}
-.vcard,.gcard{flex:0 0 auto;width:min(80vw,420px);scroll-snap-align:start}
+.vcard,.gcard{flex:0 0 auto;width:min(80vw,420px)}
 .vcard__media{position:relative;aspect-ratio:16/9;border-radius:14px;overflow:hidden;background:var(--line-soft);border:1px solid var(--line)}
 .vcard__media img{width:100%;height:100%;object-fit:cover}
 .vcard__play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:1.8rem;background:rgba(0,0,0,.18);transition:background .3s}
