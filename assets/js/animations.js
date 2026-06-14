@@ -1,5 +1,5 @@
 // 入场与滚动动效（GSAP + ScrollTrigger）。动效关闭时不调用本模块，元素保持默认可见。
-export function initAnimations(){
+function initAnimations(){
   gsap.registerPlugin(ScrollTrigger);
 
   // 首页入场

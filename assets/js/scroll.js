@@ -1,4 +1,4 @@
-export function initScroll(reduced){
+function initScroll(reduced){
   const bar=document.getElementById("progress");
   if(reduced){
     const upd=()=>{const s=scrollY/(document.body.scrollHeight-innerHeight||1);bar.style.transform=`scaleX(${s})`;};

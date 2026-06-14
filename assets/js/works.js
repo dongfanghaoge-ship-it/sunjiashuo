@@ -1,5 +1,5 @@
 // 作品集交互：横排拖拽滚动、图片点击放大、整行可点。
-export function initWorks(){
+function initWorks(){
   // 横排拖拽
   document.querySelectorAll(".drag-row").forEach(row=>{
     let down=false,sx=0,sl=0,moved=0;

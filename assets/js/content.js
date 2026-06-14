@@ -2,7 +2,7 @@
 // 所有硬数据（奖项全称、等级、年份、分数）均来自真实证书材料，未读准的字段留空，见 CONTENT-待核对.md。
 // 标注「草稿待定稿」的字段为初稿文案，需学生本人确认。
 
-export const profile = {
+const profile = {
   name: "孙佳硕",
   tagline: "新闻学 · 数据新闻与计算传播",
   school: "山东大学",
@@ -16,7 +16,7 @@ export const profile = {
   tags: ["数据新闻", "计算传播", "全媒体创作", "国家奖学金"],
 };
 
-export const portfolio = {
+const portfolio = {
   // 代表性数据新闻作品：以第十届中国数据新闻大赛全国二等奖作品为主打
   dataNews: {
     title: "“灵魂砍价”背后的医药集采",
@@ -45,7 +45,7 @@ export const portfolio = {
 };
 
 // 竞赛获奖：全称、等级、年份均依据证书原文
-export const competitions = [
+const competitions = [
   {
     title: "第十届中国数据新闻大赛全国总决赛二等奖（作品：相交“灵魂砍价”背后的药品集采平行线）",
     level: "国家级二等奖",
@@ -89,7 +89,7 @@ export const competitions = [
 ];
 
 // 学术成果：summary 字段为初稿摘要，标注草稿待定稿
-export const research = [
+const research = [
   {
     title: "大语言模型中文议题编码能力的研究——以DeepSeek-V4-Pro对新闻作品标题的编码为例",
     venue: "课程论文",
@@ -125,7 +125,7 @@ export const research = [
 ];
 
 // 学习与工作经历：组织、职务、起止时间均据聘书与实习证明
-export const experience = [
+const experience = [
   {
     org: "山东大学新闻传播学院学生会",
     role: "执行主席",
@@ -152,10 +152,10 @@ export const experience = [
   },
 ];
 
-export const experiencePhotos = [];   // 待补：经历相关照片
+const experiencePhotos = [];   // 待补：经历相关照片
 
 // 荣誉称号与奖学金：全称与年份均据证书原文
-export const honors = [
+const honors = [
   { name: "本专科生国家奖学金", year: "2024–2025学年" },
   { name: "山东大学三好学生（2024-2025学年）", year: "2025" },
   { name: "山东大学优秀学生奖一等（2024-2025学年）", year: "2025" },
@@ -170,7 +170,7 @@ export const honors = [
 ];
 
 // 技能与素养：detail 用自然语言陈述，避免名词串联
-export const skills = [
+const skills = [
   { label: "数据新闻与可视化", detail: "完成多件数据新闻作品并在中国数据新闻大赛获国家级与省级奖项" },
   { label: "计算传播与编程", detail: "掌握 Python 语言，修读自然语言处理、大数据推断、数据思维等课程" },
   { label: "内容分析与实证研究", detail: "以内容分析法完成数据新闻历时性研究，参与省级社科研究课题" },
@@ -181,7 +181,7 @@ export const skills = [
 ];
 
 // 学业概况：用于页面展示（GPA 取自成绩单）
-export const academic = {
+const academic = {
   gpaPercent: "91.40",   // 百分制平均学分绩点
   gpaFivePoint: "4.14",  // 五分制平均学分绩点（满分5.0）
   rank: "",              // 成绩单未提供排名，待学生补充

@@ -8,7 +8,7 @@ const FONTS = [
   '"Geist",sans-serif',
 ];
 
-export function initPreloader(){
+function initPreloader(){
   const pre=document.getElementById("preloader");
   if(!pre) return;
   const el=pre.querySelector(".preloader__pct");

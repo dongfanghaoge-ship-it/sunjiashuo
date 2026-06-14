@@ -1,4 +1,3 @@
-import {profile, portfolio, competitions, research, experience, experiencePhotos, honors, skills, academic} from "./content.js";
 const $ = (sel,el=document)=>el.querySelector(sel);
 const STATIC = /[?&]static/.test(location.search);   // 预览/降级模式：不内嵌 iframe
 const esc = s => (s==null?"":String(s));
@@ -8,14 +7,14 @@ const floatImg = (src,alt,cls="")=>`<div class="floaty ${cls}"><div class="float
   ? `<img src="${src}" alt="${esc(alt)}" draggable="false">`
   : `<span class="floaty__ph">${esc(alt)||"图片占位"}</span>`}</div></div>`;
 
-export function renderNav(){
+function renderNav(){
   const items=[["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
   $("#nav").innerHTML = `
     <a class="nav__brand" href="#hero"><span class="nav__dot"></span>${profile.name}</a>
     <ul class="nav__links mono">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
 }
 
-export function renderHero(){
+function renderHero(){
   // 长简介拆成两段，呈现参考图的多段落感
   const sents = (profile.about||"").split("。").map(s=>s.trim()).filter(Boolean);
   const mid = Math.ceil(sents.length/2);
@@ -42,7 +41,7 @@ export function renderHero(){
     <a class="hero__cue mono" href="#works"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
 }
 
-export function renderAbout(){
+function renderAbout(){
   const facts = academic ? `<ul class="facts">
       <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
       <li><b class="num">${esc(academic.cet6)}</b><span>英语六级</span></li>
@@ -55,7 +54,7 @@ export function renderAbout(){
     <ul class="tagrow">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>`;
 }
 
-export function renderWorks(){
+function renderWorks(){
   const p=portfolio;
   const pieces=(p.commentary.length)+(p.video.length)+(p.gallery.length)+(p.dataNews.url?1:0);
 
@@ -122,7 +121,7 @@ export function renderWorks(){
     ${data}${write}${video}${visual}`;
 }
 
-export function renderResearch(){
+function renderResearch(){
   $("#research").innerHTML = `
     ${kicker("03","科研与学术 / Research")}
     <h2 class="big">科研与学术</h2>
@@ -135,7 +134,7 @@ export function renderResearch(){
       </li>`).join("")}</ol>`;
 }
 
-export function renderExperience(){
+function renderExperience(){
   const photos=`<div class="drag-row" data-drag>${(experiencePhotos.length?experiencePhotos:[null,null,null]).map((p,i)=>p
     ?`<figure class="gcard" data-zoom data-src="${esc(p.src)}" data-cursor="放大"><img src="${esc(p.src)}" alt="${esc(p.caption)}" draggable="false"><figcaption class="mono">${esc(p.caption)}</figcaption></figure>`
     :`<figure class="gcard gcard--ph"><span class="ph">实习照片 ${i+1}（待提供）</span></figure>`).join("")}</div>`;
@@ -151,7 +150,7 @@ export function renderExperience(){
     ${photos}`;
 }
 
-export function renderHonors(){
+function renderHonors(){
   const comp=competitions.length
     ?`<h3 class="sub">竞赛获奖</h3>
       <ul class="wall">${competitions.map(c=>`<li><span>${esc(c.title)}</span><span class="mono wall__lv">${esc(c.level)} · ${esc(c.year)}</span></li>`).join("")}</ul>`:"";
@@ -165,7 +164,7 @@ export function renderHonors(){
     <ul class="skills">${skills.map(s=>`<li><b>${esc(s.label)}</b><span>${esc(s.detail)}</span></li>`).join("")}</ul>`;
 }
 
-export function renderContact(){
+function renderContact(){
   $("#contact").innerHTML = `
     ${kicker("06","联系 / Contact")}
     <h2 class="contact-big">一起<br>聊聊</h2>
@@ -176,7 +175,7 @@ export function renderContact(){
     <footer class="foot mono"><span>© 2026 ${esc(profile.name)}</span><span>${esc(profile.school)}</span></footer>`;
 }
 
-export function renderAll(){
+function renderAll(){
   renderNav();renderHero();renderWorks();
   renderResearch();renderExperience();renderHonors();renderContact();
 }

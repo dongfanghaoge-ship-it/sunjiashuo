@@ -1,11 +1,3 @@
-import {renderAll} from "./render.js";
-import {initScroll} from "./scroll.js";
-import {initCursor} from "./cursor.js";
-import {initAnimations} from "./animations.js";
-import {initWorks} from "./works.js";
-import {initFloat} from "./hero-float.js";
-import {initPreloader} from "./preloader.js";
-import {initTypewriter} from "./typewriter.js";
 
 const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches || /[?&]static/.test(location.search);
 initPreloader();

@@ -1,5 +1,5 @@
 // 漂浮图片动效（替代参考站的 3D 悬浮物）：缓慢上下浮动 + 跟随鼠标的视差 + 可拖拽并回弹。
-export function initFloat(){
+function initFloat(){
   const reduced=matchMedia("(prefers-reduced-motion: reduce)").matches;
   const nodes=[...document.querySelectorAll("[data-float]")];
   if(!nodes.length) return;

@@ -1,6 +1,6 @@
 // 打字机效果：逐字打出 [data-typewriter] 的内容，保留 <em> 等高亮标签。
 // 默认等待预加载结束（'preloaded' 事件）再开始；reduced 模式直接显示全文。
-export function initTypewriter(reduced){
+function initTypewriter(reduced){
   const el=document.querySelector("[data-typewriter]");
   if(!el) return;
   // 收集所有文本节点并清空，记录原文用于逐字回填

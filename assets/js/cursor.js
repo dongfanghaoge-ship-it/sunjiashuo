@@ -1,5 +1,5 @@
 // 自定义光标：山大红圆点，悬停可交互元素时放大并显示标签（查看/拖拽/放大…）。
-export function initCursor(){
+function initCursor(){
   if(matchMedia("(hover: none)").matches) return;
   const el=document.getElementById("cursor");
   const label=el.querySelector(".label");
