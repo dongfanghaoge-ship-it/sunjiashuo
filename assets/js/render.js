@@ -84,10 +84,12 @@ function renderWorks(){
     <div class="work-block" id="pf-video">
       <div class="work-head"><span class="mono tag-line">视频作品 / Video</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
       <div class="drag-row" data-drag>${(p.video.length?p.video:[null,null,null]).map((v,i)=>v?`
-        <a class="vcard" ${v.url?`href="${esc(v.url)}" target="_blank" rel="noopener" data-cursor="播放"`:""}>
-          <div class="vcard__media">${v.gif?`<img src="${esc(v.gif)}" alt="${esc(v.title)}" draggable="false">`:`<span class="ph">GIF 预览</span>`}<span class="vcard__play">▶</span></div>
-          <h4>${esc(v.title)}</h4><span class="mono">${esc(v.kind)}</span>
-        </a>`:`<div class="vcard"><div class="vcard__media"><span class="ph">影像作品 ${i+1}（待提供）</span></div></div>`).join("")}</div>
+        <a class="vcard" ${v.url?`href="${esc(v.url)}" target="_blank" rel="noopener" data-cursor="下载"`:""}>
+          <div class="vcard__media">${v.gif?`<img src="${esc(v.gif)}" alt="${esc(v.title)}" draggable="false">`:`<span class="ph">视频预览</span>`}<span class="vcard__play">▶</span></div>
+          <h4>${esc(v.title)}</h4>
+          <span class="mono vcard__kind">${esc(v.kind)}</span>
+          ${v.url?`<span class="mono vcard__pan">百度网盘${v.code?` · 提取码 ${esc(v.code)}`:""} ↗</span>`:""}
+        </a>`:`<div class="vcard"><div class="vcard__media"><span class="ph">视频作品 ${i+1}（待提供）</span></div></div>`).join("")}</div>
     </div>`;
 
   // 设计与摄影：可拖拽横排 + 点击放大

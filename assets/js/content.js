@@ -40,7 +40,7 @@ const portfolio = {
     },
   ],
   commentaryCert: "",    // 待补：红辣椒评论特约评论员聘书图片路径（如 assets/img/commentary-cert.jpg），留空则显示占位
-  video: [],             // 待补：{title, kind, gif, url}，如需展示影视作品
+  video: [],             // 待补：{title, kind, gif(预览图/GIF路径), url(百度网盘分享链接), code(提取码)}
   gallery: [],           // 待补：{src, w, h, caption, kind}
 };
 

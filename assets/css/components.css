@@ -131,6 +131,8 @@
 .vcard__play{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-size:1.8rem;background:rgba(0,0,0,.18);transition:background .3s}
 .vcard:hover .vcard__play{background:rgba(158,27,50,.45)}
 .vcard h4{font-size:1.15rem;margin:12px 0 2px}.vcard .mono{color:var(--ink-soft)}
+.vcard__kind{display:block}
+.vcard__pan{display:inline-block;margin-top:8px;color:var(--red);font-size:.8rem}
 .gcard{width:min(76vw,360px)}
 .gcard img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
 .gcard figcaption{margin-top:10px;color:var(--ink-soft)}
