@@ -188,8 +188,8 @@
   background:var(--red);pointer-events:none;will-change:transform;
   display:grid;place-items:center;
   transition:width .3s var(--ease),height .3s var(--ease),background .3s}
-#cursor.is-hot{width:84px;height:84px;background:var(--red)}
-#cursor .label{color:#fff;font-size:.78rem;opacity:0;transform:scale(.6);transition:opacity .25s,transform .25s;white-space:nowrap}
+#cursor.is-hot{width:52px;height:52px;background:var(--red)}
+#cursor .label{color:#fff;font-size:.68rem;opacity:0;transform:scale(.6);transition:opacity .25s,transform .25s;white-space:nowrap}
 #cursor.is-hot .label{opacity:1;transform:scale(1)}
 @media (hover:none){#cursor{display:none}.has-cursor,.has-cursor *{cursor:auto !important}}
 

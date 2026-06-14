@@ -30,7 +30,6 @@ function renderHero(){
         ? `<img src="${esc(profile.photo)}" alt="${esc(profile.name)}" draggable="false">`
         : `<span class="ph">人物照（待提供）</span>`}</div>
       <div class="hero2__body">
-        <p class="hero2__name">${esc(profile.name)}</p>
         <p class="hero2__meta mono">${esc(profile.school)} · ${esc(profile.major)}</p>
         <p class="hero2__statement" data-typewriter>${profile.statement||esc(profile.tagline)}</p>
         <ul class="hero2__tags">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
@@ -83,7 +82,7 @@ function renderWorks(){
   // 影像：可拖拽横排
   const video=`
     <div class="work-block" id="pf-video">
-      <div class="work-head"><span class="mono tag-line">影像 / Film</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
+      <div class="work-head"><span class="mono tag-line">视频作品 / Video</span><span class="mono drag-hint">拖拽浏览 ↔</span></div>
       <div class="drag-row" data-drag>${(p.video.length?p.video:[null,null,null]).map((v,i)=>v?`
         <a class="vcard" ${v.url?`href="${esc(v.url)}" target="_blank" rel="noopener" data-cursor="播放"`:""}>
           <div class="vcard__media">${v.gif?`<img src="${esc(v.gif)}" alt="${esc(v.title)}" draggable="false">`:`<span class="ph">GIF 预览</span>`}<span class="vcard__play">▶</span></div>
