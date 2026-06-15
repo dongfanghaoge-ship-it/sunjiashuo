@@ -137,6 +137,13 @@
 .gcard img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:14px;border:1px solid var(--line)}
 .gcard figcaption{margin-top:10px;color:var(--ink-soft)}
 .gcard--ph .ph{aspect-ratio:4/3}
+/* 悬停时图片略微放大 */
+.gcard,.vcard{transition:transform .4s var(--ease)}
+.gcard:hover,.vcard:hover{transform:scale(1.04)}
+/* 聘书图：点击放大 + 悬停微放大 */
+.cert__img{border:1px solid var(--line);border-radius:12px;overflow:hidden;cursor:pointer}
+.cert__img img{width:100%;display:block;transition:transform .45s var(--ease)}
+.cert__img:hover img{transform:scale(1.05)}
 
 /* 占位块 */
 .ph{display:grid;place-items:center;width:100%;height:100%;min-height:120px;text-align:center;padding:16px;

@@ -75,7 +75,10 @@ function renderWorks(){
             ${c.quote?`<blockquote>${esc(c.quote)}</blockquote>`:""}
             ${c.url?`<span class="article__go mono">阅读全文 →</span>`:""}
           </a>`:`<p class="ph ph--text">新闻评论作品（待提供）</p>`).join("")}</div>
-        <figure class="cert">${floatImg(p.commentaryCert,"特约评论员聘书（待提供）","floaty--cert")}<figcaption class="mono">特约评论员聘书</figcaption></figure>
+        <figure class="cert">${p.commentaryCert
+          ? `<div class="cert__img" data-zoom data-src="${esc(p.commentaryCert)}" data-cursor="放大"><img src="${esc(p.commentaryCert)}" alt="红网特约青年评论员聘书" draggable="false"></div>`
+          : `<span class="ph">红网特约青年评论员聘书（待提供）</span>`}
+          <figcaption class="mono">红网特约青年评论员聘书</figcaption></figure>
       </div>
     </div>`;
 

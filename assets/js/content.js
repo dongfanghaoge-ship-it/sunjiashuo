@@ -27,8 +27,8 @@ const portfolio = {
     // 草稿待定稿
     summary: "以交互式数据可视化拆解国家药品集中带量采购，呈现“灵魂砍价”如何重塑药品价格与医药市场格局。",
   },
-  // 草稿待定稿：评论身份背书（特约评论员与获奖请本人确认表述）
-  commentaryIntro: "担任红辣椒评论特约评论员，新闻评论作品曾获第十届评论之星优秀文字奖。",
+  // 草稿待定稿：评论身份背书（获奖请本人确认表述）
+  commentaryIntro: "担任红网特约青年评论员，新闻评论作品曾获第十届评论之星优秀文字奖。",
   commentary: [
     {
       title: "多元的人生，不该困于“唯保研”",
@@ -39,9 +39,16 @@ const portfolio = {
       badge: "",                    // 待核对：本篇是否即第十届评论之星优秀文字奖作品
     },
   ],
-  commentaryCert: "",    // 待补：红辣椒评论特约评论员聘书图片路径（如 assets/img/commentary-cert.jpg），留空则显示占位
+  commentaryCert: "assets/img/commentary-cert.jpg",   // 红网特约青年评论员聘书
   video: [],             // 待补：{title, kind, gif(预览图/GIF路径), url(百度网盘分享链接), code(提取码)}
-  gallery: [],           // 待补：{src, w, h, caption, kind}
+  gallery: [
+    { src:"assets/img/design-1.jpg", caption:"《文化中国》海报设计", kind:"设计" },
+    { src:"assets/img/photo-1.jpg",  caption:"对影成双船",           kind:"摄影" },
+    { src:"assets/img/photo-2.jpg",  caption:"渔叶，煜叶",           kind:"摄影" },
+    { src:"assets/img/photo-3.jpg",  caption:"阳光灿烂的日子",       kind:"摄影" },
+    { src:"assets/img/photo-4.jpg",  caption:"雕栏玉砌应犹在",       kind:"摄影" },
+    { src:"assets/img/photo-5.jpg",  caption:"战前动员",             kind:"摄影" },
+  ],
 };
 
 // 竞赛获奖：全称、等级、年份均依据证书原文
@@ -152,7 +159,15 @@ const experience = [
   },
 ];
 
-const experiencePhotos = [];   // 待补：经历相关照片
+const experiencePhotos = [
+  { src:"assets/img/exp-1.jpg", caption:"" },
+  { src:"assets/img/exp-2.jpg", caption:"" },
+  { src:"assets/img/exp-3.jpg", caption:"" },
+  { src:"assets/img/exp-4.jpg", caption:"" },
+  { src:"assets/img/exp-5.jpg", caption:"" },
+  { src:"assets/img/exp-6.jpg", caption:"" },
+  { src:"assets/img/exp-7.jpg", caption:"" },
+];
 
 // 荣誉称号与奖学金：全称与年份均据证书原文
 const honors = [
