@@ -30,9 +30,7 @@ function renderHero(){
         ? `<img src="${esc(profile.photo)}" alt="${esc(profile.name)}" draggable="false">`
         : `<span class="ph">人物照（待提供）</span>`}</div>
       <div class="hero2__body">
-        <p class="hero2__meta mono">${esc(profile.school)} · ${esc(profile.major)}</p>
         <p class="hero2__statement" data-typewriter>${profile.statement||esc(profile.tagline)}</p>
-        <ul class="hero2__tags">${profile.tags.map(t=>`<li>${esc(t)}</li>`).join("")}</ul>
         <div class="hero2__bio">${paras.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
         ${facts}
       </div>
