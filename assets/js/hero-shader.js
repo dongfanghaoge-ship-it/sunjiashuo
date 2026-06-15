@@ -19,32 +19,33 @@ function initHeroShader(reduced){
     vec2 uv=gl_FragCoord.xy/uRes.xy;
     float ar=uRes.x/uRes.y;
     vec2 p=vec2(uv.x*ar,uv.y);
-    float t=uTime*0.022;
+    float t=uTime*0.03;
     float PI=3.14159265;
-    // 缓动的柔和底场（漩涡）
-    vec2 q=vec2(fbm(p*1.05+t),fbm(p*1.05+vec2(4.2,1.3)-t));
-    // 竖向凹槽玻璃
-    float freq=34.0;
+    // FlutedGlass：竖向凹槽折射
+    float freq=28.0;
     float ridge=fract(p.x*freq);
     float lens=sin(ridge*PI);                 // 0 边缘 -> 1 中心
-    float warp=(ridge-0.5)*0.05;              // 折射横向偏移
-    float fr=fbm(vec2(p.x+warp,p.y)*1.05+q*1.15);
-    // 底：浅灰 -> 近白
-    vec3 col=mix(vec3(0.90),vec3(0.995),fr);
-    // 凹槽明暗 + 细高光（玻璃感）
-    col*=0.93+0.07*lens;
-    col+=smoothstep(0.93,1.0,lens)*0.10;
-    // 山大红：仅凹槽缝隙处极淡折射光，随底场明暗
-    vec3 sdu=vec3(0.620,0.105,0.196); // #9E1B32
-    float seam=pow(1.0-lens,2.5);
-    col=mix(col,sdu,clamp(seam*(0.05+0.09*fr),0.0,0.15));
-    // 一处缓慢柔光（右上）+ 鼠标处微光，都很淡
-    vec2 g1=vec2((0.82+0.05*sin(uTime*0.05))*ar,0.74);
-    col=mix(col,sdu,smoothstep(0.5,0.0,distance(p,g1))*0.07);
+    float warp=(ridge-0.5)*0.045;             // 折射横向偏移
+    vec2 sp=vec2(p.x+warp,p.y);
+    // Swirl：白 / #f0f0f0 域扭曲漩涡
+    vec2 q=vec2(fbm(sp*1.25+t),fbm(sp*1.25+vec2(4.2,1.3)-t));
+    vec2 r=vec2(fbm(sp*1.25+q*1.4+vec2(1.7,9.2)+t*0.5),fbm(sp*1.25+q*1.4+vec2(8.3,2.8)-t*0.5));
+    float f=fbm(sp*1.25+r*1.5);
+    vec3 col=mix(vec3(1.0),vec3(0.94),smoothstep(0.15,0.92,f));
+    // ChromaFlow：橙色暖光从游走中心 + 鼠标晕开（提示词 #ff5f03）
+    vec3 orange=vec3(1.0,0.373,0.012);
+    vec2 c1=vec2((0.5+0.28*sin(uTime*0.08))*ar,0.54+0.22*cos(uTime*0.11));
+    float d1=distance(p,c1);
     vec2 mp=vec2(uMouse.x*ar,uMouse.y);
-    col=mix(col,sdu,smoothstep(0.2,0.0,distance(p,mp))*0.09);
-    // 颗粒（FilmGrain）
-    col+=hash(gl_FragCoord.xy+fract(uTime))*0.035-0.017;
+    float dm=distance(p,mp);
+    float flow=smoothstep(0.95,0.0,d1)*(0.32+0.5*r.x)+smoothstep(0.55,0.0,dm)*0.55;
+    flow*=(0.5+0.75*f);
+    col=mix(col,orange,clamp(flow,0.0,0.82));
+    // 玻璃高光 + 色散（aberration）
+    col+=smoothstep(0.9,1.0,lens)*0.07;
+    col.r+=warp*1.6; col.b-=warp*1.0;
+    // FilmGrain：颗粒
+    col+=hash(gl_FragCoord.xy+fract(uTime))*0.05-0.025;
     gl_FragColor=vec4(col,1.0);
   }`;
 
