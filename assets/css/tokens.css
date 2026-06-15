@@ -8,8 +8,8 @@
 
 :root{
   /* 颜色 */
-  --red:#9E1B32;            /* 山大红，主强调色 */
-  --red-deep:#7d1527;
+  --red:#F26522;            /* 封面橙，主强调色 */
+  --red-deep:#d9551a;
   --bg:#ffffff;            /* 纯白 */
   --ink:#0c0c0c;           /* 近黑 */
   --ink-soft:#7a7a7a;
