@@ -6,7 +6,7 @@ function initCursor(){
   let x=innerWidth/2,y=innerHeight/2,cx=x,cy=y;
   addEventListener("mousemove",e=>{x=e.clientX;y=e.clientY;});
   (function loop(){
-    cx+=(x-cx)*.2;cy+=(y-cy)*.2;
+    cx+=(x-cx)*.35;cy+=(y-cy)*.35;
     el.style.transform=`translate(${cx}px,${cy}px) translate(-50%,-50%)`;
     requestAnimationFrame(loop);
   })();

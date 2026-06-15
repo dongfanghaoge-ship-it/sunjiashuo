@@ -14,7 +14,7 @@ const SVG_STAR='<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true
 const rollBtn=(text)=>`<span class="rollbtn__roll"><span>${text}</span><span aria-hidden="true">${text}</span></span><span class="rollbtn__circle">${SVG_ARROW}</span>`;
 
 function renderNav(){
-  const items=[["about","关于"],["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
+  const items=[["about","关于"],["honors","荣誉"],["research","科研"],["works","作品"],["experience","实践"],["contact","联系"]];
   $("#nav").innerHTML = `
     <div class="navpill">
       <div class="navpill__group">
@@ -37,24 +37,19 @@ function renderHero(){
       <div class="cover__top"></div>
       <div class="cover__inner">
         <p class="cover__label mono">${esc(profile.name)} · 个人主页</p>
-        <h1 class="cover__title">我用数据新闻与计算传播，<br>把复杂的公共议题，<br>讲得清楚，也讲得好看。</h1>
+        <h1 class="cover__title">您好，感谢您抽出时间浏览<br>希望借此增进您对我的了解！</h1>
         <div class="cover__cta">
           <a class="rollbtn rollbtn--red" href="#works" data-cursor="查看">${rollBtn("查看我的作品")}</a>
-          <div class="credbadge">
-            <span class="credbadge__icon">${SVG_STAR}</span>
-            <span class="credbadge__txt">国家奖学金获得者</span>
-            <span class="credbadge__tag">2025</span>
-          </div>
         </div>
       </div>
-    </div>`;
+          </div>`;
 }
 
 // 关于（承接原首页：照片 + 打字机简介 + 长简介 + 学业数据）
 function renderAbout(){
   const sents = (profile.about||"").split("。").map(s=>s.trim()).filter(Boolean);
   const mid = Math.ceil(sents.length/2);
-  const paras = [sents.slice(0,mid).join("。")+"。", sents.slice(mid).join("。")+(sents.length>mid?"。":"")].filter(p=>p.length>1);
+  const paras = [sents.slice(0,mid).join(""), sents.slice(mid).join("")].filter(p=>p.length>1).map(p=>p.replace(/，/g,"<br>"));
   const facts = academic ? `<ul class="hero2__facts">
       <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
       <li><b class="num">${esc(academic.rank)||"待补"}</b><span>专业排名</span></li>
@@ -141,7 +136,7 @@ function renderWorks(){
     </div>`;
 
   $("#works").innerHTML = `
-    ${kicker("02","作品集 / Works")}
+    ${kicker("04","作品集 / Works")}
     <div class="works-title"><h2 class="big">作品集</h2><span class="count mono"><b class="num" data-count="${pieces}">0</b> 件作品 · <b class="num" data-count="${competitions.length}">0</b> 项竞赛获奖</span></div>
     ${data}${write}${video}${visual}`;
 }
@@ -167,7 +162,7 @@ function renderExperience(){
     ?`<figure class="gcard" data-zoom data-src="${esc(p.src)}" data-cursor="放大"><img src="${esc(p.src)}" alt="${esc(p.caption)}" draggable="false"><figcaption class="mono">${esc(p.caption)}</figcaption></figure>`
     :`<figure class="gcard gcard--ph"><span class="ph">实习照片 ${i+1}（待提供）</span></figure>`).join("")}</div>`;
   $("#experience").innerHTML = `
-    ${kicker("04","实践经历 / Experience")}
+    ${kicker("05","实践经历 / Experience")}
     <h2 class="big">实践经历</h2>
     <ol class="rows">${experience.map(e=>`
       <li class="row">
@@ -183,7 +178,7 @@ function renderHonors(){
     ?`<h3 class="sub">竞赛获奖</h3>
       <ul class="wall">${competitions.map(c=>`<li><span>${esc(c.title)}</span><span class="mono wall__lv">${esc(c.level)} · ${esc(c.year)}</span></li>`).join("")}</ul>`:"";
   $("#honors").innerHTML = `
-    ${kicker("05","荣誉与技能 / Honors")}
+    ${kicker("02","荣誉与技能 / Honors")}
     <h2 class="big">荣誉与技能</h2>
     ${comp}
     <h3 class="sub">荣誉称号</h3>
@@ -196,11 +191,15 @@ function renderContact(){
   $("#contact").innerHTML = `
     ${kicker("06","联系 / Contact")}
     <h2 class="contact-big">欢迎和我联系！</h2>
-    <div class="contact-row">
-      ${profile.email?`<a class="contact-link" href="mailto:${esc(profile.email)}" data-cursor="发邮件">${esc(profile.email)}</a>`:`<span class="contact-link">（邮箱待提供）</span>`}
-      <a class="btn" href="assets/docs/简历.pdf" target="_blank" rel="noopener" data-cursor="下载">下载简历</a>
-    </div>
-    <footer class="foot mono"><span>© 2026 ${esc(profile.name)}</span><span>${esc(profile.school)}</span></footer>`;
+    <div class="contact-wrap">
+      <div class="contact-left">
+        <div class="contact-row">
+          ${profile.email?`<a class="contact-link" href="mailto:${esc(profile.email)}" data-cursor="发邮件">${esc(profile.email)}</a>`:`<span class="contact-link">（邮箱待提供）</span>`}
+        </div>
+        <footer class="foot mono"><span>© 2026 ${esc(profile.name)}</span><span>${esc(profile.school)}</span></footer>
+      </div>
+      <img class="contact-img" src="assets/img/contact-bg.jpg" alt="" draggable="false">
+    </div>`;
 }
 
 function renderAll(){

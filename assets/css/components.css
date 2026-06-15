@@ -34,6 +34,7 @@
   text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft)}
 .hero2__bio{display:grid;gap:14px;max-width:44em}
 .hero2__bio p{color:#555;font-size:1.02rem;line-height:1.75}
+.hero2__bio em{font-style:normal;color:var(--red)}
 .hero2__facts{display:flex;flex-wrap:wrap;gap:clamp(20px,3vw,44px);list-style:none;margin-top:28px;
   padding-top:22px;border-top:1px solid var(--line)}
 .hero2__facts b{display:block;font-size:clamp(1.5rem,2.3vw,2.05rem);font-weight:800;color:var(--red);line-height:1}
@@ -183,6 +184,9 @@
 .contact-row{display:flex;flex-wrap:wrap;align-items:center;gap:clamp(20px,4vw,56px)}
 .contact-link{font-size:clamp(1.4rem,3vw,2.4rem);font-weight:600;border-bottom:2px solid var(--ink);padding-bottom:4px;transition:color .25s,border-color .25s}
 .contact-link:hover{color:var(--red);border-color:var(--red)}
+.contact-wrap{display:flex;align-items:center;justify-content:space-between;gap:clamp(24px,4vw,64px)}
+.contact-left{display:flex;flex-direction:column;gap:clamp(20px,4vw,56px)}
+.contact-img{max-width:clamp(200px,32vw,420px);border-radius:14px;flex-shrink:0}
 .foot{display:flex;justify-content:space-between;gap:16px;color:var(--ink-soft);
   margin-top:clamp(48px,10vh,120px);padding-top:22px;border-top:1px solid var(--line)}
 
@@ -193,7 +197,7 @@
 
 /* ---------- 自定义光标 ---------- */
 .has-cursor,.has-cursor *{cursor:none !important}
-#cursor{position:fixed;top:0;left:0;z-index:60;width:12px;height:12px;border-radius:50%;
+#cursor{position:fixed;top:0;left:0;z-index:90;width:12px;height:12px;border-radius:50%;
   background:var(--red);pointer-events:none;will-change:transform;
   display:grid;place-items:center;
   transition:width .3s var(--ease),height .3s var(--ease),background .3s}

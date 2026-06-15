@@ -8,11 +8,11 @@ const profile = {
   school: "山东大学",
   major: "新闻学（大数据与智能媒体方向）",
   email: "617910334@qq.com",
-  photo: "assets/img/hero-portrait.png",   // 首页人物照（透明底）
+  photo: "assets/img/about-photo.jpg",   // 首页人物照
   // 个人简介：首页右侧打字机逐字打出，<em> 包裹的词以山大红高亮。草稿待定稿
-  statement: "我习惯先问一句<em>“如果”</em>，在看懂之前先<em>动手去试</em>，再从一团乱的数据里<em>建立秩序</em>——这，大概就是我做新闻的方式。",
+  statement: "永远相信美好的事情即将发生。",
   // 草稿待定稿：以下 about 为故事化自述初稿，约 190 字，待学生确认口吻与事实
-  about: "我在山东大学新闻传播学院读新闻学（大数据与智能媒体方向），兴趣落在数据新闻与计算传播。比起把新闻写成一段文字，我更想知道一条新闻背后的数据长什么样：药品集采的价格曲线如何相交，无人驾驶的安全账该怎么算，十年间的数据新闻获奖作品又把镜头对准了谁。我习惯用代码去抓取、清洗、可视化，再用新闻人的判断去取舍。也正因为常和大模型打交道，我开始研究它在中文议题编码上的可靠边界，得出的结论是：它能当初编的助手，却替代不了人的复核。课堂之外，我在电视台做过导演助理，在学院学生会和记者团带过队，习惯把一件事从选题做到落地。",
+  about: "三年前，强基计划报考山大<em>失败</em>，综合素质评价报考山大<em>失败</em>，提前批报考山大<em>失败</em>，没想到因为考研名师的一句话改变分数线来到了山大，导致第一批次报考中传计算机<em>失败</em>，，两年前，来到山大后绩点排名仅33/105，转专业去计算机<em>失败</em>，，未来的本科阶段一直在为大一的低绩点补课，大二学年综测排名第二，拿到了国创赛金奖、国家奖学金，永远不气馁，永远相信美好的事情<em>即将发生</em>",
   tags: ["数据新闻", "计算传播", "全媒体创作", "国家奖学金"],
 };
 
@@ -38,9 +38,33 @@ const portfolio = {
       url: "https://baijiahao.baidu.com/s?id=1844324614780226535&wfr=spider&for=pc",
       badge: "",                    // 待核对：本篇是否即第十届评论之星优秀文字奖作品
     },
+    {
+      title: "除尘剂变“瘾品”，对青少年新型物质滥用要严管早教",
+      media: "红辣椒评论",
+      date: "2026年1月",
+      quote: "只有通过强化其对化学品毒理常识的科学认知，并结合心理健康的深度引导，才能从源头上阻断此类物质对青少年群体的侵蚀。",
+      url: "https://hlj.rednet.cn/nograb/646045/63/15653637.html",
+      badge: "",
+    },
+    {
+      title: "把“称不准”甩锅给新手，“好想来”的回应为何难平众怒？",
+      media: "红辣椒评论",
+      date: "2026年1月",
+      quote: "如果品牌方不能从制度层面堵住漏洞，而是习惯于事后赔偿，那么今天只是“好想来”，明天或许就是“很难来”。",
+      url: "https://hlj.rednet.cn/content/646045/63/15653666.html",
+      badge: "",
+    },
   ],
   commentaryCert: "assets/img/commentary-cert.jpg",   // 红网特约青年评论员聘书
-  video: [],             // 待补：{title, kind, gif(预览图/GIF路径), url(百度网盘分享链接), code(提取码)}
+  video: [
+    { title:"“山东大学潍坊日”视频新闻",     kind:"视频新闻",   gif:"assets/img/video-sdwf-day.jpg",             url:"https://pan.baidu.com/s/1Dy_fK5u0FrLjyztxs9pmQQ?pwd=2m65",  code:"2m65" },
+    { title:"《老舍五则新编》微纪录片",       kind:"微纪录片",   gif:"assets/img/video-laoshe.jpg",               url:"https://pan.baidu.com/s/1qjqiS2g6ArjTLzO2GduIMw?pwd=mqx4",  code:"mqx4" },
+    { title:"《新传er去哪儿》采访",           kind:"采访",       gif:"assets/img/video-xinchuaner.jpg",           url:"https://pan.baidu.com/s/187wJg52DtPbTkOV1IiklFQ?pwd=jb2q",  code:"jb2q" },
+    { title:"《山大十二时辰》",               kind:"短片",       gif:"assets/img/video-sdu-12h.jpg",              url:"https://pan.baidu.com/s/1UAbmy_fGrOX9l1JYY5l_ow?pwd=pq4b",  code:"pq4b" },
+    { title:"国创赛路演视频",                 kind:"路演视频",   gif:"assets/img/video-innovation-competition.jpg", url:"https://pan.baidu.com/s/1IJ-SWYchtGkl-hBfaNN0jA?pwd=7cqy", code:"7cqy" },
+    { title:"《典籍故事青年说》视频新闻",      kind:"视频新闻",   gif:"assets/img/video-classics.jpg",             url:"https://pan.baidu.com/s/12ON9ou6pMIvfKpBjCs914w?pwd=4wi1",  code:"4wi1" },
+    { title:"微电影《你的域名》",              kind:"微电影",     gif:"assets/img/video-your-domain.jpg",          url:"https://pan.baidu.com/s/1kFqWKV1cPA4SWyc8MhDDeQ?pwd=hp8s", code:"hp8s" },
+  ],
   gallery: [
     { src:"assets/img/design-1.jpg", caption:"《文化中国》海报设计", kind:"设计" },
     { src:"assets/img/photo-1.jpg",  caption:"对影成双船",           kind:"摄影" },
@@ -98,6 +122,14 @@ const competitions = [
 // 学术成果：summary 字段为初稿摘要，标注草稿待定稿
 const research = [
   {
+    title: "“高校本科生高产SCI论文”事件网络舆情分析——基于新浪微博的全周期监测",
+    venue: "课程报告",
+    year: "2025",
+    // 草稿待定稿
+    summary: "以新浪微博 2405 条博文与 583 条评论为样本，对“温州医科大学本科生一年发表 43 篇 SCI 论文”事件做全周期舆情分析，从时间、内容、主体与社交网络四个维度刻画舆情演化，揭示信息披露不足下公众对学术诚信与科研评价失衡的担忧，并就回应时效与舆论引导提出建议。",
+    pdf: "assets/docs/public-opinion-report.pdf",
+  },
+  {
     title: "大语言模型中文议题编码能力的研究——以DeepSeek-V4-Pro对新闻作品标题的编码为例",
     venue: "课程论文",
     year: "2026",
@@ -112,14 +144,6 @@ const research = [
     // 草稿待定稿
     summary: "用内容分析法对十一年间中国数据新闻大赛获奖作品做历时性描述，发现选题高度集中于经济与社会民生、呈现社会热点驱动特征，赛事由学界主导且优质资源向高层次院校与华北华东核心区域聚集，存在显著马太效应。",
     pdf: "assets/docs/data-journalism-ten-years.pdf",
-  },
-  {
-    title: "“高校本科生高产SCI论文”事件网络舆情分析——基于新浪微博的全周期监测",
-    venue: "课程报告",
-    year: "2025",
-    // 草稿待定稿
-    summary: "以新浪微博 2405 条博文与 583 条评论为样本，对“温州医科大学本科生一年发表 43 篇 SCI 论文”事件做全周期舆情分析，从时间、内容、主体与社交网络四个维度刻画舆情演化，揭示信息披露不足下公众对学术诚信与科研评价失衡的担忧，并就回应时效与舆论引导提出建议。",
-    pdf: "assets/docs/public-opinion-report.pdf",
   },
   {
     title: "培育时代新人背景下红色文化资源赋能学生党支部政治功能实现路径研究",
