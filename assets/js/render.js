@@ -7,15 +7,51 @@ const floatImg = (src,alt,cls="")=>`<div class="floaty ${cls}"><div class="float
   ? `<img src="${src}" alt="${esc(alt)}" draggable="false">`
   : `<span class="floaty__ph">${esc(alt)||"图片占位"}</span>`}</div></div>`;
 
+// 内联图标
+const SVG_ARROW='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+const SVG_CLOCK='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>';
+const SVG_STAR='<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true"><path d="m19.6 66.5 19.7-11 .3-1-.3-.5h-1l-3.3-.2-11.2-.3L14 53l-9.5-.5-2.4-.5L0 49l.2-1.5 2-1.3 2.9.2 6.3.5 9.5.6 6.9.4L38 49.1h1.6l.2-.7-.5-.4-.4-.4L29 41l-10.6-7-5.6-4.1-3-2-1.5-2-.6-4.2 2.7-3 3.7.3.9.2 3.7 2.9 8 6.1L37 36l1.5 1.2.6-.4.1-.3-.7-1.1L33 25l-6-10.4-2.7-4.3-.7-2.6c-.3-1-.4-2-.4-3l3-4.2L28 0l4.2.6L33.8 2l2.6 6 4.1 9.3L47 29.9l2 3.8 1 3.4.3 1h.7v-.5l.5-7.2 1-8.7 1-11.2.3-3.2 1.6-3.8 3-2L61 2.6l2 2.9-.3 1.8-1.1 7.7L59 27.1l-1.5 8.2h.9l1-1.1 4.1-5.4 6.9-8.6 3-3.5L77 13l2.3-1.8h4.3l3.1 4.7-1.4 4.9-4.4 5.6-3.7 4.7-5.3 7.1-3.2 5.7.3.4h.7l12-2.6 6.4-1.1 7.6-1.3 3.5 1.6.4 1.6-1.4 3.4-8.2 2-9.6 2-14.3 3.3-.2.1.2.3 6.4.6 2.8.2h6.8l12.6 1 3.3 2 1.9 2.7-.3 2-5.1 2.6-6.8-1.6-16-3.8-5.4-1.3h-.8v.4l4.6 4.5 8.3 7.5L89 80.1l.5 2.4-1.3 2-1.4-.2-9.2-7-3.6-3-8-6.8h-.5v.7l1.8 2.7 9.8 14.7.5 4.5-.7 1.4-2.6 1-2.7-.6-5.8-8-6-9-4.7-8.2-.5.4-2.9 30.2-1.3 1.5-3 1.2-2.5-2-1.4-3 1.4-6.2 1.6-8 1.3-6.4 1.2-7.9.7-2.6v-.2H49L43 72l-9 12.3-7.2 7.6-1.7.7-3-1.5.3-2.8L24 86l10-12.8 6-7.9 4-4.6-.1-.5h-.3L17.2 77.4l-4.7.6-2-2 .2-3 1-1 8-5.5Z"/></svg>';
+const rollBtn=(text)=>`<span class="rollbtn__roll"><span>${text}</span><span aria-hidden="true">${text}</span></span><span class="rollbtn__circle">${SVG_ARROW}</span>`;
+
 function renderNav(){
-  const items=[["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
+  const items=[["about","关于"],["works","作品"],["research","科研"],["experience","实践"],["honors","荣誉"],["contact","联系"]];
   $("#nav").innerHTML = `
-    <a class="nav__brand" href="#hero"><span class="nav__dot"></span>欢迎来到${profile.name}的个人网站</a>
-    <ul class="nav__links mono">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>`;
+    <div class="navpill">
+      <div class="navpill__group">
+        <a class="navpill__logo" href="#hero" aria-label="${esc(profile.name)}">孙</a>
+        <ul class="navpill__links">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>
+      </div>
+      <div class="navpill__group navpill__right">
+        <span class="navpill__status">2026 推免申请中</span>
+        <span class="navpill__clock mono">${SVG_CLOCK}<span id="navClock">--:--</span> 济南</span>
+        <a class="rollbtn rollbtn--dark" href="#contact" data-cursor="联系">${rollBtn("联系我")}</a>
+      </div>
+    </div>`;
 }
 
+// 封面（仿 Axion：流光背景 + 底部大标题）
 function renderHero(){
-  // 长简介拆成两段，呈现参考图的多段落感
+  $("#hero").innerHTML = `
+    <canvas id="heroShader" class="hero-shader" aria-hidden="true"></canvas>
+    <div class="cover">
+      <div class="cover__top"></div>
+      <div class="cover__inner">
+        <p class="cover__label mono">${esc(profile.name)} · 个人主页</p>
+        <h1 class="cover__title">我用数据新闻与计算传播，<br>把复杂的公共议题，<br>讲得清楚，也讲得好看。</h1>
+        <div class="cover__cta">
+          <a class="rollbtn rollbtn--red" href="#works" data-cursor="查看">${rollBtn("查看我的作品")}</a>
+          <div class="credbadge">
+            <span class="credbadge__icon">${SVG_STAR}</span>
+            <span class="credbadge__txt">国家奖学金获得者</span>
+            <span class="credbadge__tag">2025</span>
+          </div>
+        </div>
+      </div>
+    </div>`;
+}
+
+// 关于（承接原首页：照片 + 打字机简介 + 长简介 + 学业数据）
+function renderAbout(){
   const sents = (profile.about||"").split("。").map(s=>s.trim()).filter(Boolean);
   const mid = Math.ceil(sents.length/2);
   const paras = [sents.slice(0,mid).join("。")+"。", sents.slice(mid).join("。")+(sents.length>mid?"。":"")].filter(p=>p.length>1);
@@ -24,7 +60,8 @@ function renderHero(){
       <li><b class="num">${esc(academic.rank)||"待补"}</b><span>专业排名</span></li>
       <li><b class="num num--txt">国家奖学金</b><span>2024–2025学年获得者</span></li>
     </ul>` : "";
-  $("#hero").innerHTML = `
+  $("#about").innerHTML = `
+    ${kicker("01","关于我 / About")}
     <div class="hero2">
       <div class="hero2__photo">${profile.photo
         ? `<img src="${esc(profile.photo)}" alt="${esc(profile.name)}" draggable="false">`
@@ -34,8 +71,7 @@ function renderHero(){
         <div class="hero2__bio">${paras.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
         ${facts}
       </div>
-    </div>
-    <a class="hero__cue mono" href="#works"><span>向下滚动</span><span class="hero__cue-line"></span></a>`;
+    </div>`;
 }
 
 function renderWorks(){
@@ -168,6 +204,6 @@ function renderContact(){
 }
 
 function renderAll(){
-  renderNav();renderHero();renderWorks();
+  renderNav();renderHero();renderAbout();renderWorks();
   renderResearch();renderExperience();renderHonors();renderContact();
 }
