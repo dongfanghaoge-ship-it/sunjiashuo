@@ -23,8 +23,7 @@ function initAnimations(){
   reveal(".article");
   reveal(".vcard,.gcard");
   reveal(".row");
-  reveal(".wall li",{y:20,duration:.55});
-  reveal(".skills li");
+  reveal(".wall:not(.honors-year-list) li",{y:20,duration:.55});
   reveal(".contact-row");
 
   // 数字计数

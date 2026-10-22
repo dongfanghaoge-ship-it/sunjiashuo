@@ -5,6 +5,7 @@ renderAll();
 initHeroShader(reduced);
 initClock();
 initScroll(reduced);
+initPageControls();
 initWorks();
 initTypewriter(reduced);
 if(!reduced){ initCursor(); initFloat(); }

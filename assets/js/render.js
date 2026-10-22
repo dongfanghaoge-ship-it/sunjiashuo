@@ -14,7 +14,7 @@ const SVG_STAR='<svg viewBox="0 0 100 100" fill="currentColor" aria-hidden="true
 const rollBtn=(text)=>`<span class="rollbtn__roll"><span>${text}</span><span aria-hidden="true">${text}</span></span><span class="rollbtn__circle">${SVG_ARROW}</span>`;
 
 function renderNav(){
-  const items=[["about","关于"],["honors","荣誉"],["research","科研"],["works","作品"],["experience","实践"],["contact","联系"]];
+  const items=[["about","关于我"],["honors","荣誉"],["research","科研"],["works","作品"],["experience","实践"],["contact","联系"]];
   $("#nav").innerHTML = `
     <div class="navpill">
       <div class="navpill__group">
@@ -22,7 +22,6 @@ function renderNav(){
         <ul class="navpill__links">${items.map(([id,t])=>`<li><a href="#${id}">${t}</a></li>`).join("")}</ul>
       </div>
       <div class="navpill__group navpill__right">
-        <span class="navpill__status">2026 推免申请中</span>
         <span class="navpill__clock mono">${SVG_CLOCK}<span id="navClock">--:--</span> 济南</span>
         <a class="rollbtn rollbtn--dark" href="#contact" data-cursor="联系">${rollBtn("联系我")}</a>
       </div>
@@ -36,24 +35,20 @@ function renderHero(){
     <div class="cover">
       <div class="cover__top"></div>
       <div class="cover__inner">
-        <p class="cover__label mono">${esc(profile.name)} · 个人主页</p>
         <h1 class="cover__title">您好，感谢您抽出时间浏览<br>希望借此增进您对我的了解！</h1>
         <div class="cover__cta">
-          <a class="rollbtn rollbtn--red" href="#works" data-cursor="查看">${rollBtn("查看我的作品")}</a>
+          <a class="rollbtn rollbtn--red" href="#about" data-cursor="浏览">${rollBtn("点击开始浏览")}</a>
         </div>
       </div>
-          </div>`;
+    </div>`;
 }
 
-// 关于（承接原首页：照片 + 打字机简介 + 长简介 + 学业数据）
+// 关于：照片、中英文简介与学业数据
 function renderAbout(){
-  const sents = (profile.about||"").split("。").map(s=>s.trim()).filter(Boolean);
-  const mid = Math.ceil(sents.length/2);
-  const paras = [sents.slice(0,mid).join(""), sents.slice(mid).join("")].filter(p=>p.length>1).map(p=>p.replace(/，/g,"<br>"));
   const facts = academic ? `<ul class="hero2__facts">
-      <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前五学期</span></li>
+      <li><b class="num">${esc(academic.gpaPercent)}</b><span>百分制绩点 · 前六学期</span></li>
       <li><b class="num">${esc(academic.rank)||"待补"}</b><span>专业排名</span></li>
-      <li><b class="num num--txt">国家奖学金</b><span>2024–2025学年获得者</span></li>
+      <li><b class="num num--txt">国家奖学金</b><span>连续两年获得</span></li>
     </ul>` : "";
   $("#about").innerHTML = `
     ${kicker("01","关于我 / About")}
@@ -62,8 +57,11 @@ function renderAbout(){
         ? `<img src="${esc(profile.photo)}" alt="${esc(profile.name)}" draggable="false">`
         : `<span class="ph">人物照（待提供）</span>`}</div>
       <div class="hero2__body">
-        <p class="hero2__statement" data-typewriter>${profile.statement||esc(profile.tagline)}</p>
-        <div class="hero2__bio">${paras.map(p=>`<p>${esc(p)}</p>`).join("")}</div>
+        <p class="hero2__statement" lang="zh-CN" data-typewriter>${profile.statement||esc(profile.tagline)}</p>
+        <div class="hero2__bio">
+          <p lang="zh-CN">${profile.about||""}</p>
+          ${profile.aboutEn?`<p class="hero2__bio-en" lang="en">${profile.aboutEn}</p>`:""}
+        </div>
         ${facts}
       </div>
     </div>`;
@@ -71,7 +69,6 @@ function renderAbout(){
 
 function renderWorks(){
   const p=portfolio;
-  const pieces=(p.commentary.length)+(p.video.length)+(p.gallery.length)+(p.dataNews.url?1:0);
 
   // 数据新闻：实时嵌入 + 漂浮信息
   const data=`
@@ -137,7 +134,7 @@ function renderWorks(){
 
   $("#works").innerHTML = `
     ${kicker("04","作品集 / Works")}
-    <div class="works-title"><h2 class="big">作品集</h2><span class="count mono"><b class="num" data-count="${pieces}">0</b> 件作品 · <b class="num" data-count="${competitions.length}">0</b> 项竞赛获奖</span></div>
+    <div class="works-title"><h2 class="big">作品集</h2></div>
     ${data}${write}${video}${visual}`;
 }
 
@@ -174,17 +171,48 @@ function renderExperience(){
 }
 
 function renderHonors(){
+  const years=[...new Set(honors.map(o=>o.year))].sort().reverse();
   const comp=competitions.length
     ?`<h3 class="sub">竞赛获奖</h3>
       <ul class="wall">${competitions.map(c=>`<li><span>${esc(c.title)}</span><span class="mono wall__lv">${esc(c.level)} · ${esc(c.year)}</span></li>`).join("")}</ul>`:"";
   $("#honors").innerHTML = `
-    ${kicker("02","荣誉与技能 / Honors")}
-    <h2 class="big">荣誉与技能</h2>
-    ${comp}
-    <h3 class="sub">荣誉称号</h3>
-    <ul class="wall">${honors.map(o=>`<li><span>${esc(o.name)}</span><span class="mono wall__lv">${esc(o.year)}</span></li>`).join("")}</ul>
-    <h3 class="sub">技能</h3>
-    <ul class="skills">${skills.map(s=>`<li><b>${esc(s.label)}</b><span>${esc(s.detail)}</span></li>`).join("")}</ul>`;
+    ${kicker("02","荣誉与奖项 / Honors")}
+    <h2 class="big">荣誉与奖项</h2>
+    <h3 class="sub">奖项及荣誉</h3>
+    <div class="honors-years" role="tablist" aria-label="按学年查看奖项及荣誉">
+      ${years.map((year,i)=>`<button class="honors-years__tab mono" type="button" role="tab" id="honorsYearTab${i}" aria-controls="honorsYearPanel${i}" aria-selected="${i===0}" tabindex="${i===0?0:-1}">${esc(year)}</button>`).join("")}
+    </div>
+    ${years.map((year,i)=>`<div class="honors-year-panel" id="honorsYearPanel${i}" role="tabpanel" aria-labelledby="honorsYearTab${i}" tabindex="0" ${i===0?"":"hidden"}>
+      <ul class="wall honors-year-list">${honors.filter(o=>o.year===year).map(o=>`<li><span>${esc(o.name)}</span><span class="mono wall__lv">${esc(o.year)}</span></li>`).join("")}</ul>
+    </div>`).join("")}
+    ${comp}`;
+}
+
+function initPageControls(){
+  const tabs=[...document.querySelectorAll(".honors-years__tab")];
+  const selectYear=selected=>{
+    tabs.forEach(tab=>{
+      const active=tab===selected;
+      tab.setAttribute("aria-selected",String(active));
+      tab.tabIndex=active?0:-1;
+      document.getElementById(tab.getAttribute("aria-controls")).hidden=!active;
+    });
+    window.ScrollTrigger?.refresh();
+  };
+  tabs.forEach((tab,i)=>{
+    tab.addEventListener("click",()=>selectYear(tab));
+    tab.addEventListener("keydown",e=>{
+      let next;
+      if(e.key==="ArrowRight") next=(i+1)%tabs.length;
+      else if(e.key==="ArrowLeft") next=(i-1+tabs.length)%tabs.length;
+      else if(e.key==="Home") next=0;
+      else if(e.key==="End") next=tabs.length-1;
+      else return;
+      e.preventDefault();
+      selectYear(tabs[next]);
+      tabs[next].focus({preventScroll:true});
+    });
+  });
 }
 
 function renderContact(){

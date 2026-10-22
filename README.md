@@ -21,12 +21,12 @@ python3 -m http.server 8011
 
 各板块对应的字段：
 
-- `profile`：姓名、定位语、关于我自述、关键标签。
+- `profile`：姓名、定位语、中英文个人简介与关键标签；`aboutEn` 为英文简介。
 - `portfolio`：作品集四类内容（见下）。
-- `competitions`：竞赛获奖（显示在「荣誉与技能」）。
+- `competitions`：竞赛获奖（显示在「荣誉与奖项」）。
 - `research`：科研与学术。
 - `experience` / `experiencePhotos`：实践经历与实习照片。
-- `honors` / `skills`：荣誉称号与技能。
+- `honors`：奖项及荣誉，按 `year` 学年字段分组切换，默认显示最新学年，展示在竞赛获奖之前。
 - `academic`：GPA、英语成绩等。
 
 ## 作品集需要你提供的素材
